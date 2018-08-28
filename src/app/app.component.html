@@ -1,18 +1,18 @@
 <mat-toolbar class="mat-elevation-z8" color="primary">
-  <button mat-flat-button color="primary">
+  <button routerLink="/boards" mat-flat-button color="primary">
     #2Minute Boards Manager
   </button>
   <span class="example-fill-remaining-space">
-    <button mat-flat-button color="primary">
+    <button routerLink="/boards" mat-flat-button color="primary">
       All
     </button>
-    <button mat-flat-button color="primary">
+    <button routerLink="/boards/beach-clean" mat-flat-button color="primary">
       Beach Clean
     </button>
-    <button mat-flat-button color="primary">
+    <button routerLink="/boards/street-clean" mat-flat-button color="primary">
       Street Clean
     </button>
-    <button mat-flat-button color="primary">
+    <button routerLink="/boards/litter-pick" mat-flat-button color="primary">
       Litter Pick
     </button>
   </span>
@@ -22,3 +22,4 @@
     </button>
   </span>
 </mat-toolbar>
+<router-outlet></router-outlet>

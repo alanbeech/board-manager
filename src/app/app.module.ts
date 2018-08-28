@@ -5,10 +5,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {AppComponent} from './app.component';
 import {MatButtonModule, MatCheckboxModule, MatIconModule, MatToolbarModule} from '@angular/material';
+import { AppRoutingModule } from './/app-routing.module';
+import { BoardsComponent } from './boards/boards.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BoardsComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -16,7 +19,8 @@ import {MatButtonModule, MatCheckboxModule, MatIconModule, MatToolbarModule} fro
     MatButtonModule,
     MatCheckboxModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
