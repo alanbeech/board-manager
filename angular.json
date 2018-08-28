@@ -123,5 +123,10 @@
       }
     }
   },
-  "defaultProject": "board-manager"
+  "defaultProject": "board-manager",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
