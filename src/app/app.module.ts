@@ -15,6 +15,7 @@ import {
 } from '@angular/material';
 import { AppRoutingModule } from './/app-routing.module';
 import { BoardsComponent } from './boards/boards.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { BoardsComponent } from './boards/boards.component';
     MatInputModule,
     MatCardModule,
     MatPaginatorModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
