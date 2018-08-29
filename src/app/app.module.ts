@@ -4,7 +4,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 import {AppComponent} from './app.component';
-import {MatButtonModule, MatCheckboxModule, MatIconModule, MatToolbarModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatFormFieldModule,
+  MatIconModule, MatInputModule, MatPaginatorModule,
+  MatTableModule,
+  MatToolbarModule
+} from '@angular/material';
 import { AppRoutingModule } from './/app-routing.module';
 import { BoardsComponent } from './boards/boards.component';
 
@@ -20,6 +28,11 @@ import { BoardsComponent } from './boards/boards.component';
     MatCheckboxModule,
     MatToolbarModule,
     MatIconModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatPaginatorModule,
     AppRoutingModule
   ],
   providers: [],
