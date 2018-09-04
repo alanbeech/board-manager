@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatPaginator, MatTableDataSource} from '@angular/material';
 import {BoardsService} from '../boards.service';
+import {LoginDialogComponent} from '../login-dialog/login-dialog.component';
 
 export interface PeriodicElement {
   boardId: number;
@@ -39,7 +40,7 @@ export class BoardsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private boardsService: BoardsService) { }
+  constructor(private boardsService: BoardsService, public dialog: MatDialog) { }
 
   public  getBoards(){
     this.boardsService.getBoards().subscribe((data:  Array<PeriodicElement>) => {
@@ -47,6 +48,14 @@ export class BoardsComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.boards);
       console.log(data);
     });
+  }
+
+  login() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(LoginDialogComponent, dialogConfig);
   }
 
   applyFilter(filterValue: string) {

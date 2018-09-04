@@ -7,23 +7,28 @@ import {AppComponent} from './app.component';
 import {
   MatButtonModule,
   MatCardModule,
-  MatCheckboxModule,
+  MatCheckboxModule, MatDialogModule,
   MatFormFieldModule,
   MatIconModule, MatInputModule, MatPaginatorModule,
   MatTableModule,
   MatToolbarModule
 } from '@angular/material';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { BoardsComponent } from './boards/boards.component';
 import {HttpClientModule} from '@angular/common/http';
+import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import {FormControl} from '@angular/forms';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    BoardsComponent
+    BoardsComponent,
+    LoginDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
+    MatDialogModule,
     BrowserModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -35,8 +40,13 @@ import {HttpClientModule} from '@angular/common/http';
     MatCardModule,
     MatPaginatorModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatFormFieldModule
   ],
+  entryComponents: [
+    LoginDialogComponent
+  ],
+
   providers: [],
   bootstrap: [AppComponent]
 })

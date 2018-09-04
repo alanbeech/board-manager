@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {MatIconRegistry} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatDialogRef, MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
+import {LoginDialogComponent} from './login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,20 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class AppComponent {
   title = 'board-manager';
 
-  constructor() {
 
+
+  constructor(public dialog: MatDialog) {
+
+  }
+
+  login() {
+    // const dialogConfig = new MatDialogConfig();
+    //
+    // dialogConfig.disableClose = true;
+    // dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(LoginDialogComponent, {
+      height: '280px',
+      width: '600px'
+    });
   }
 }
