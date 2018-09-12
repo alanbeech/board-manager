@@ -9,7 +9,7 @@ import {
   MatCardModule,
   MatCheckboxModule, MatDialogModule,
   MatFormFieldModule,
-  MatIconModule, MatInputModule, MatPaginatorModule,
+  MatIconModule, MatInputModule, MatMenuModule, MatPaginatorModule,
   MatTableModule,
   MatToolbarModule
 } from '@angular/material';
@@ -17,7 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BoardsComponent } from './boards/boards.component';
 import {HttpClientModule} from '@angular/common/http';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
-import {FormControl} from '@angular/forms';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -41,7 +41,9 @@ import {FormControl} from '@angular/forms';
     MatPaginatorModule,
     AppRoutingModule,
     HttpClientModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatMenuModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     LoginDialogComponent

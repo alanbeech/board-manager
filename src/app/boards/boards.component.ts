@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatPaginator, MatTableDataSource} from '@angular/material';
 import {BoardsService} from '../boards.service';
 import {LoginDialogComponent} from '../login-dialog/login-dialog.component';
+import {SelectionModel} from '@angular/cdk/collections';
 
 export interface PeriodicElement {
   boardId: number;
@@ -28,15 +29,20 @@ export interface PeriodicElement {
 //   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 // ];
 
+const initialSelection = [];
+const allowMultiSelect = true;
+
+
 @Component({
   selector: 'app-boards',
   templateUrl: './boards.component.html',
   styleUrls: ['./boards.component.scss']
 })
 export class BoardsComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'longitude'];
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'longitude', 'menu'];
   dataSource: any; // = new MatTableDataSource(ELEMENT_DATA);
   boards: Array<PeriodicElement>;
+  selection = new SelectionModel<PeriodicElement>(allowMultiSelect, initialSelection);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -46,20 +52,25 @@ export class BoardsComponent implements OnInit {
     this.boardsService.getBoards().subscribe((data:  Array<PeriodicElement>) => {
       this.boards  =  data;
       this.dataSource = new MatTableDataSource(this.boards);
-      console.log(data);
     });
-  }
-
-  login() {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    const dialogRef = this.dialog.open(LoginDialogComponent, dialogConfig);
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
   ngOnInit() {

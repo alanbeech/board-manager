@@ -17,8 +17,12 @@
     </button>
   </span>
   <span>
-    <button (click)="login()" mat-flat-button color="primary">
+    <button *ngIf="!isLoggedIn" (click)="login()" mat-flat-button color="primary">
       Log in
+    </button>
+    <button *ngIf="isLoggedIn" (click)="logout()" mat-flat-button color="primary">
+      <mat-icon class="example-icon">logout</mat-icon>
+      Log out
     </button>
   </span>
 </mat-toolbar>
