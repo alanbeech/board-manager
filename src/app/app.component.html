@@ -6,13 +6,13 @@
     <button routerLink="/boards" mat-flat-button color="primary">
       All
     </button>
-    <button routerLink="/boards/beach-clean" mat-flat-button color="primary">
+    <button routerLink="/boards/0" mat-flat-button color="primary">
       Beach Clean
     </button>
-    <button routerLink="/boards/street-clean" mat-flat-button color="primary">
+    <button routerLink="/boards/2" mat-flat-button color="primary">
       Street Clean
     </button>
-    <button routerLink="/boards/litter-pick" mat-flat-button color="primary">
+    <button routerLink="/boards/1" mat-flat-button color="primary">
       Litter Pick
     </button>
   </span>
@@ -22,7 +22,7 @@
     </button>
     <button *ngIf="isLoggedIn" (click)="logout()" mat-flat-button color="primary">
       <mat-icon class="example-icon">logout</mat-icon>
-      Log out
+      Log outs
     </button>
   </span>
 </mat-toolbar>

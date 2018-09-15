@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Edit Board</h2>
+<mat-dialog-content>
+  <div class="example-container">
+
+    <form [formGroup]="editBoardForm">
+
+      <mat-form-field style="width: 100%">
+        <input matInput formControlName="name" placeholder="Name">
+      </mat-form-field>
+
+
+    </form>
+
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions  style="float: right">
+
+  <!--<button mat-button mat-dialog-close>Forgotten Password</button>-->
+
+  <!--<button mat-button mat-dialog-close>Cancel</button>-->
+  <!--&lt;!&ndash; The mat-dialog-close directive optionally accepts a value as a result for the dialog. &ndash;&gt;-->
+  <button mat-button mat-raised-button color="primary">Save</button>
+
+</mat-dialog-actions>

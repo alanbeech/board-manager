@@ -9,7 +9,13 @@ export class BoardsService {
 
   constructor(private  httpClient:  HttpClient) { }
 
-  getBoards(){
-    return  this.httpClient.get(`${this.API_URL}/boards`);
+  getBoards(boardType){
+    if (boardType >= 0) {
+      return  this.httpClient.get(`${this.API_URL}/boardsapp/?boardType=${boardType}`);
+
+    } else {
+      return  this.httpClient.get(`${this.API_URL}/boardsapp`);
+
+    }
   }
 }

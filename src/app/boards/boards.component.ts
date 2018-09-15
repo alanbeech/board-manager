@@ -1,33 +1,24 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatPaginator, MatTableDataSource} from '@angular/material';
 import {BoardsService} from '../boards.service';
-import {LoginDialogComponent} from '../login-dialog/login-dialog.component';
 import {SelectionModel} from '@angular/cdk/collections';
+import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
+import {ActivatedRoute} from '@angular/router';
 
-export interface PeriodicElement {
+export interface Board {
   boardId: number;
-  beachName: string;
+  twoMinuteId: string;
+  name: string;
+  location: string;
+  description: string;
+  photoUrls: string[];
+  thumbnailUrls: string[];
   latitude: number;
   longitude: number;
-
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  ownerIds: string[];
+  boardType: number;
+  status: number;
 }
-
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-//   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-//   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-//   {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-//   {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-//   {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-//   {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-//   {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-//   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-//   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-// ];
 
 const initialSelection = [];
 const allowMultiSelect = true;
@@ -41,15 +32,19 @@ const allowMultiSelect = true;
 export class BoardsComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'longitude', 'menu'];
   dataSource: any; // = new MatTableDataSource(ELEMENT_DATA);
-  boards: Array<PeriodicElement>;
-  selection = new SelectionModel<PeriodicElement>(allowMultiSelect, initialSelection);
+  boards: Array<Board>;
+  selection = new SelectionModel<Board>(allowMultiSelect, initialSelection);
+  boardType: number;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private boardsService: BoardsService, public dialog: MatDialog) { }
+  constructor(
+    private boardsService: BoardsService,
+    private route: ActivatedRoute,
+    public dialog: MatDialog) { }
 
-  public  getBoards(){
-    this.boardsService.getBoards().subscribe((data:  Array<PeriodicElement>) => {
+  public  getBoards(boardId: number){
+    this.boardsService.getBoards(boardId).subscribe((data:  Array<Board>) => {
       this.boards  =  data;
       this.dataSource = new MatTableDataSource(this.boards);
     });
@@ -57,6 +52,18 @@ export class BoardsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  showEdit(a: any) {
+    console.log(a);
+
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      height: '280px',
+      width: '600px',
+      data: a
+    });
+
+    // dialogRef..boardData = a;
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -74,7 +81,14 @@ export class BoardsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getBoards();
+
+
+    this.sub = this.route.params.subscribe(params => {
+      this.boardType = +params['filter']; // (+) converts string 'id' to a number
+      this.getBoards(this.boardType);
+      // In a real app: dispatch action to load the details here.
+    });
+
   }
 
 }

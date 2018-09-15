@@ -18,13 +18,15 @@ import { BoardsComponent } from './boards/boards.component';
 import {HttpClientModule} from '@angular/common/http';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardsComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    EditDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -46,7 +48,7 @@ import {FormControl, ReactiveFormsModule} from '@angular/forms';
     ReactiveFormsModule
   ],
   entryComponents: [
-    LoginDialogComponent
+    LoginDialogComponent, EditDialogComponent
   ],
 
   providers: [],
