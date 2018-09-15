@@ -83,7 +83,7 @@ export class BoardsComponent implements OnInit {
   ngOnInit() {
 
 
-    this.sub = this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.boardType = +params['filter']; // (+) converts string 'id' to a number
       this.getBoards(this.boardType);
       // In a real app: dispatch action to load the details here.
