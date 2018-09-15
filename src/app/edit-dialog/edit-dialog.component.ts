@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {PeriodicElement} from '../boards/boards.component';
 import {MAT_DIALOG_DATA} from '@angular/material';
+import {Board} from '../boards/boards.component';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -10,7 +10,7 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 })
 export class EditDialogComponent implements OnInit {
 
-  boardData: PeriodicElement;
+  boardData: Board;
 
   editBoardForm = new FormGroup({
     name: new FormControl(this.data.beachName)
