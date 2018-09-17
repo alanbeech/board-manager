@@ -9,7 +9,7 @@ import {
   MatCardModule,
   MatCheckboxModule, MatDialogModule,
   MatFormFieldModule,
-  MatIconModule, MatInputModule, MatMenuModule, MatPaginatorModule,
+  MatIconModule, MatInputModule, MatMenuModule, MatPaginatorModule, MatSelectModule,
   MatTableModule,
   MatToolbarModule
 } from '@angular/material';
@@ -45,7 +45,8 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
     HttpClientModule,
     MatFormFieldModule,
     MatMenuModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule
   ],
   entryComponents: [
     LoginDialogComponent, EditDialogComponent

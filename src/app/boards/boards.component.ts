@@ -58,7 +58,7 @@ export class BoardsComponent implements OnInit {
     console.log(a);
 
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      height: '280px',
+
       width: '600px',
       data: a
     });
