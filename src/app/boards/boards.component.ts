@@ -4,6 +4,7 @@ import {BoardsService} from '../boards.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
 import {ActivatedRoute} from '@angular/router';
+import {LoginResponseModel} from '../login-response.model';
 
 export interface Board {
   boardId: number;
@@ -61,6 +62,10 @@ export class BoardsComponent implements OnInit {
 
       width: '600px',
       data: a
+    });
+
+    dialogRef.afterClosed().subscribe((refresh: boolean) => {
+      this.getBoards(this.boardType);
     });
 
     // dialogRef..boardData = a;

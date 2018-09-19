@@ -32,25 +32,21 @@
 
       <mat-form-field style="width: 100%">
 
-        <mat-select [(value)]="selectedBoardType" placeholder="Board Type">
-          <mat-option *ngFor="let food of boardTypes" [value]="food.value">
+        <mat-select [(value)]="selectedBoardType" formControlName="boardType" placeholder="Board Type">
+          <mat-option *ngFor="let food of boardTypes" [(value)]="food.value">
             {{food.viewValue}}
           </mat-option>
         </mat-select>
-
-
-        <!--<input matInput formControlName="boardType" placeholder="Board Type">-->
       </mat-form-field>
 
       <mat-form-field style="width: 100%">
-          <mat-select [(value)]="selected" placeholder="Status">
-            <mat-option *ngFor="let food of foods" [value]="food.value">
+          <mat-select [(value)]="selected" formControlName="status"  placeholder="Status">
+            <mat-option *ngFor="let food of foods" [(value)]="food.value">
               {{food.viewValue}}
             </mat-option>
           </mat-select>
-
-        <!--<input matInput formControlName="status" placeholder="Status">-->
       </mat-form-field>
+
 
 
 
@@ -65,6 +61,6 @@
 
   <!--<button mat-button mat-dialog-close>Cancel</button>-->
   <!--&lt;!&ndash; The mat-dialog-close directive optionally accepts a value as a result for the dialog. &ndash;&gt;-->
-  <button mat-button mat-raised-button color="primary">Save</button>
+  <button (click)="onSubmit()" mat-button mat-raised-button color="primary">Save</button>
 
 </mat-dialog-actions>

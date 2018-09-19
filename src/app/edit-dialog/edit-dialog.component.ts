@@ -1,7 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Board} from '../boards/boards.component';
+import {BoardsService} from '../boards.service';
 
 export interface Food {
   value: string;
@@ -54,11 +55,22 @@ export class EditDialogComponent implements OnInit {
     description: new FormControl(this.data.description),
     latitude: new FormControl(this.data.latitude),
     longitude: new FormControl(this.data.longitude),
-    boardType: new FormControl(this.data.boardType),
-    status: new FormControl(this.data.status)
+    boardType: new FormControl(this.data.boardType.toString()),
+    status: new FormControl(this.data.status.toString())
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Board) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Board, private boardsService: BoardsService, public dialogRef: MatDialogRef<EditDialogComponent>) { }
+
+  onSubmit() {
+    // TODO: Use EventEmitter with form value
+    console.warn(this.editBoardForm.value);
+    this.boardsService.updateBoard(this.editBoardForm.value).subscribe(() => {
+      console.log('ok');
+      this.dialogRef.close(true);
+    }, (error) => {
+      console.log(error);
+    });
+  }
 
   ngOnInit() {
     // this.boardId = this.boardData.boardId;
