@@ -10,7 +10,6 @@ export class BoardsService {
   API_URL = 'https://beachclean.net/api';
 
   constructor(private  httpClient:  HttpClient, private accountService: AccountService) {
-    this.httpClient.request
   }
 
   getBoards(boardType){
@@ -28,6 +27,29 @@ export class BoardsService {
     headers = headers.set('ZUMO-API-VERSION', '2.0.0');
     headers = headers.set('Authorization', 'Bearer ' + this.accountService.getKey());
     return this.httpClient.put(`${this.API_URL}/boardsapp/${value.boardId}`, value, {
+      headers: headers
+    });
+  }
+
+  addBoard(value: Board) {
+
+    console.log(value);
+    let headers = new HttpHeaders();
+    headers = headers.set('ZUMO-API-VERSION', '2.0.0');
+    headers = headers.set('Authorization', 'Bearer ' + this.accountService.getKey());
+    return this.httpClient.post(`${this.API_URL}/boardsapp`, value, {
+      headers: headers
+    });
+  }
+
+  deleteBoard(boardId: number) {
+
+    console.log(`${this.API_URL}/boardsapp/${boardId}`);
+
+    let headers = new HttpHeaders();
+    headers = headers.set('ZUMO-API-VERSION', '2.0.0');
+    headers = headers.set('Authorization', 'Bearer ' + this.accountService.getKey());
+    return this.httpClient.delete(`${this.API_URL}/boardsapp/${boardId}`, {
       headers: headers
     });
   }

@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Edit Board (id={{data?.boardId}})</h2>
+<h2 mat-dialog-title>Add Board</h2>
 <mat-dialog-content>
   <div class="example-container">
     <form [formGroup]="editBoardForm">
@@ -36,11 +36,11 @@
       </mat-form-field>
 
       <mat-form-field style="width: 100%">
-          <mat-select [(value)]="selected" formControlName="status"  placeholder="Status">
-            <mat-option *ngFor="let status of statuses" [(value)]="status.value">
-              {{status.viewValue}}
-            </mat-option>
-          </mat-select>
+        <mat-select [(value)]="selected" formControlName="status"  placeholder="Status">
+          <mat-option *ngFor="let status of statuses" [(value)]="status.value">
+            {{status.viewValue}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </form>
   </div>

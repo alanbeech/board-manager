@@ -1,5 +1,10 @@
 <div class="boards">
 
+  <button class="add-button" mat-fab (click)="addBoard()" color="primary">
+    <mat-icon class="example-icon">add</mat-icon>
+  </button>
+
+
   <mat-card class="mat-elevation-z0">
 
     <mat-card-title-group>
@@ -66,7 +71,14 @@
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element">
             <mat-menu #appMenu="matMenu">
-              <button mat-menu-item (click)="showEdit(element)">Edit</button>
+              <button mat-menu-item (click)="showEdit(element)">
+                <mat-icon>edit</mat-icon>
+                Edit
+              </button>
+              <button mat-menu-item (click)="deleteBoard(element)">
+                <mat-icon>delete</mat-icon>
+                Delete
+              </button>
             </mat-menu>
 
             <button mat-icon-button [matMenuTriggerFor]="appMenu">
@@ -81,7 +93,6 @@
 
 
     </mat-card-content>
-
 
   </mat-card>
 

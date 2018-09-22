@@ -9,7 +9,7 @@ import {
   MatCardModule,
   MatCheckboxModule, MatDialogModule,
   MatFormFieldModule,
-  MatIconModule, MatInputModule, MatMenuModule, MatPaginatorModule, MatSelectModule,
+  MatIconModule, MatInputModule, MatMenuModule, MatPaginatorModule, MatSelectModule, MatSnackBarModule,
   MatTableModule,
   MatToolbarModule
 } from '@angular/material';
@@ -19,6 +19,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
+import { AddDialogComponent } from './add-dialog/add-dialog.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
     AppComponent,
     BoardsComponent,
     LoginDialogComponent,
-    EditDialogComponent
+    EditDialogComponent,
+    AddDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -46,10 +48,11 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
     MatFormFieldModule,
     MatMenuModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   entryComponents: [
-    LoginDialogComponent, EditDialogComponent
+    LoginDialogComponent, EditDialogComponent, AddDialogComponent
   ],
 
   providers: [],

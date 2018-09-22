@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatDialogConfig, MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatPaginator, MatSnackBar, MatTableDataSource} from '@angular/material';
 import {BoardsService} from '../boards.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
 import {ActivatedRoute} from '@angular/router';
 import {LoginResponseModel} from '../login-response.model';
+import {AddDialogComponent} from '../add-dialog/add-dialog.component';
 
 export interface Board {
   boardId: number;
@@ -42,7 +43,8 @@ export class BoardsComponent implements OnInit {
   constructor(
     private boardsService: BoardsService,
     private route: ActivatedRoute,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar) { }
 
   public  getBoards(boardId: number){
     this.boardsService.getBoards(boardId).subscribe((data:  Array<Board>) => {
@@ -55,6 +57,37 @@ export class BoardsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  addBoard() {
+    const dialogRef = this.dialog.open(AddDialogComponent, {
+
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe((refresh: boolean) => {
+
+      this.snackBar.open('Board Added', '', {
+        duration: 2000,
+      });
+
+      this.getBoards(this.boardType);
+    });
+  }
+
+  deleteBoard(board: Board) {
+    console.log('delete board', board);
+    this.boardsService.deleteBoard(board.boardId).subscribe(() => {
+      console.log('done');
+      this.getBoards(this.boardType);
+
+      this.snackBar.open('Board Deleted', '', {
+        duration: 2000,
+      });
+
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
   showEdit(a: any) {
     console.log(a);
 
@@ -65,6 +98,11 @@ export class BoardsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((refresh: boolean) => {
+
+      this.snackBar.open('Board Saved', '', {
+        duration: 2000,
+      });
+
       this.getBoards(this.boardType);
     });
 
