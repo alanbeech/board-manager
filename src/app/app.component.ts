@@ -4,6 +4,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {LoginDialogComponent} from './login-dialog/login-dialog.component';
 import {LoginResponseModel} from './login-response.model';
 import {AccountService} from './account.service';
+import {Angulartics2GoogleAnalytics} from 'angulartics2/ga';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,10 @@ export class AppComponent implements OnInit {
   email: string;
 
 
-  constructor(public dialog: MatDialog, private accountService: AccountService) {
+  constructor(
+    public dialog: MatDialog,
+    private accountService: AccountService,
+    angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
 
   }
 

@@ -6,6 +6,7 @@ import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
 import {ActivatedRoute} from '@angular/router';
 import {LoginResponseModel} from '../login-response.model';
 import {AddDialogComponent} from '../add-dialog/add-dialog.component';
+import {ConfirmDeleteComponent} from '../confirm-delete/confirm-delete.component';
 
 export interface Board {
   boardId: number;
@@ -74,18 +75,41 @@ export class BoardsComponent implements OnInit {
   }
 
   deleteBoard(board: Board) {
-    console.log('delete board', board);
-    this.boardsService.deleteBoard(board.boardId).subscribe(() => {
-      console.log('done');
-      this.getBoards(this.boardType);
 
-      this.snackBar.open('Board Deleted', '', {
-        duration: 2000,
-      });
-
-    }, (err) => {
-      console.log(err);
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: '600px'
     });
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+
+      if (confirmed) {
+
+        console.log('delete board', board);
+        this.boardsService.deleteBoard(board.boardId).subscribe(() => {
+          console.log('done');
+          this.getBoards(this.boardType);
+
+          this.snackBar.open('Board Deleted', '', {
+            duration: 2000,
+          });
+
+        }, (err) => {
+          console.log(err);
+        });
+      }
+    });
+
+    // console.log('delete board', board);
+    // this.boardsService.deleteBoard(board.boardId).subscribe(() => {
+    //   console.log('done');
+    //   this.getBoards(this.boardType);
+    //
+    //   this.snackBar.open('Board Deleted', '', {
+    //     duration: 2000,
+    //   });
+    //
+    // }, (err) => {
+    //   console.log(err);
+    // });
   }
 
   showEdit(a: any) {

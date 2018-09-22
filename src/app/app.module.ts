@@ -20,6 +20,9 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { AddDialogComponent } from './add-dialog/add-dialog.component';
+import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
+import {Angulartics2Module} from 'angulartics2';
+import {Angulartics2GoogleAnalytics} from 'angulartics2/ga';
 
 
 @NgModule({
@@ -28,7 +31,8 @@ import { AddDialogComponent } from './add-dialog/add-dialog.component';
     BoardsComponent,
     LoginDialogComponent,
     EditDialogComponent,
-    AddDialogComponent
+    AddDialogComponent,
+    ConfirmDeleteComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -49,10 +53,11 @@ import { AddDialogComponent } from './add-dialog/add-dialog.component';
     MatMenuModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
   ],
   entryComponents: [
-    LoginDialogComponent, EditDialogComponent, AddDialogComponent
+    LoginDialogComponent, EditDialogComponent, AddDialogComponent, ConfirmDeleteComponent
   ],
 
   providers: [],
