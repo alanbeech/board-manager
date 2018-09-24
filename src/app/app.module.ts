@@ -22,8 +22,7 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { AddDialogComponent } from './add-dialog/add-dialog.component';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 import {Angulartics2Module} from 'angulartics2';
-import {Angulartics2GoogleAnalytics} from 'angulartics2/ga';
-
+import {Angulartics2GoogleTagManager} from 'angulartics2/gtm';
 
 @NgModule({
   declarations: [
@@ -54,7 +53,7 @@ import {Angulartics2GoogleAnalytics} from 'angulartics2/ga';
     ReactiveFormsModule,
     MatSelectModule,
     MatSnackBarModule,
-    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
+    Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ])
   ],
   entryComponents: [
     LoginDialogComponent, EditDialogComponent, AddDialogComponent, ConfirmDeleteComponent

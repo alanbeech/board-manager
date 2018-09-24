@@ -2,10 +2,7 @@
 
   <button class="add-button" mat-fab (click)="addBoard()" color="primary">
     <mat-icon
-      class="example-icon"
-      angulartics2On="click"
-      angularticsAction="AddBoardClick"
-      [angularticsCategory]="'BoardManagement'">add</mat-icon>
+      class="example-icon">add</mat-icon>
   </button>
 
 
@@ -44,8 +41,12 @@
 
         <!-- Position Column -->
         <ng-container matColumnDef="position">
-          <th mat-header-cell *matHeaderCellDef> Id</th>
-          <td mat-cell *matCellDef="let element"> {{element.boardId}}</td>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element" style="width: 30px;">
+            <mat-icon *ngIf="element.boardType=='0'" class="icon beach-clean">event_note</mat-icon>
+            <mat-icon *ngIf="element.boardType=='1'" class="icon street-clean">event_note</mat-icon>
+            <mat-icon *ngIf="element.boardType=='2'" class="icon litter-pick">event_note</mat-icon>
+            </td>
         </ng-container>
 
         <!-- Name Column -->
@@ -72,7 +73,7 @@
         </ng-container>
 
         <ng-container matColumnDef="menu">
-          <th mat-header-cell *matHeaderCellDef></th>
+          <th mat-header-cell *matHeaderCellDef  style="width: 30px;"></th>
           <td mat-cell *matCellDef="let element">
             <mat-menu #appMenu="matMenu">
               <button mat-menu-item (click)="showEdit(element)">
@@ -85,7 +86,7 @@
               </button>
             </mat-menu>
 
-            <button mat-icon-button [matMenuTriggerFor]="appMenu">
+            <button *ngIf="isLoggedIn" mat-icon-button [matMenuTriggerFor]="appMenu">
               <mat-icon>more_vert</mat-icon>
             </button>
           </td>

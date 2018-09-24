@@ -14,6 +14,24 @@ table {
   &.selected {
     background: #dddddd;
   }
+
+  .icon {
+    margin-right: 10px;
+
+
+  }
+
+  .beach-clean {
+    color: orange;
+  }
+
+  .street-clean {
+    color: green;
+  }
+
+  .litter-pick {
+    color: blue;
+  }
 }
 
 .add-button {

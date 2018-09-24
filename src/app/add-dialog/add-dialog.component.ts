@@ -5,6 +5,7 @@ import {Status} from '../status.interface';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {BoardsService} from '../boards.service';
+import {Angulartics2} from 'angulartics2';
 
 @Component({
   selector: 'app-add-dialog',
@@ -48,7 +49,8 @@ export class AddDialogComponent implements OnInit {
 
   constructor(
     private boardsService: BoardsService,
-    public dialogRef: MatDialogRef<AddDialogComponent>) { }
+    public dialogRef: MatDialogRef<AddDialogComponent>,
+    private angulartics2: Angulartics2) { }
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
@@ -56,6 +58,9 @@ export class AddDialogComponent implements OnInit {
     this.boardsService.addBoard(this.editBoardForm.value).subscribe(() => {
       console.log('ok');
       this.dialogRef.close(true);
+
+
+
     }, (error) => {
       console.log(error);
     });
@@ -64,6 +69,14 @@ export class AddDialogComponent implements OnInit {
   ngOnInit() {
     // this.selected = this.data.status.toString();
     // this.selectedBoardType = this.data.boardType.toString();
+
+    this.angulartics2.eventTrack.next({
+      action: 'myAction',
+      properties: { category: 'myCategory' },
+    });
+
+
+
 
   }
 

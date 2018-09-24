@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef, MatIconRegistry} from '@angular/material';
-import {DomSanitizer} from '@angular/platform-browser';
 import {LoginDialogComponent} from './login-dialog/login-dialog.component';
 import {LoginResponseModel} from './login-response.model';
 import {AccountService} from './account.service';
-import {Angulartics2GoogleAnalytics} from 'angulartics2/ga';
+import {Angulartics2GoogleTagManager} from 'angulartics2/gtm';
+import {Angulartics2} from 'angulartics2';
 
 @Component({
   selector: 'app-root',
@@ -20,9 +20,8 @@ export class AppComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private accountService: AccountService,
-    angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
-
-  }
+    angulartics2GoogleTagManager: Angulartics2GoogleTagManager,
+    private angulartics2: Angulartics2) { }
 
   login() {
     const dialogRef = this.dialog.open(LoginDialogComponent, {
@@ -40,6 +39,7 @@ export class AppComponent implements OnInit {
     this.accountService.logout();
     this.email = '';
     this.isLoggedIn = false;
+    this.accountService.loggedIn.next(false);
   }
 
   ngOnInit(): void {
@@ -47,5 +47,20 @@ export class AppComponent implements OnInit {
     if (authKey) {
       this.isLoggedIn = true;
     }
+
+    this.angulartics2.eventTrack.next({
+      action: 'myAction',
+      properties: {
+        category: 'myCategory',
+        label: 'myLabel',
+      },
+    });
+
+
+    // @ts-ignore
+    gtag('event', '1234', {
+      'event_category' : 'bbb2',
+      'event_label' : 'ccc3'
+    });
   }
 }

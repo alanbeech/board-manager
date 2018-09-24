@@ -29,6 +29,7 @@ export class LoginDialogComponent implements OnInit {
     this.accountService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe((loginResponse: LoginResponseModel) => {
       this.accountService.storeKey(loginResponse.access_token);
       this.dialogRef.close(loginResponse);
+      this.accountService.loggedIn.next(true);
     });
   }
 

@@ -7,6 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 import {LoginResponseModel} from '../login-response.model';
 import {AddDialogComponent} from '../add-dialog/add-dialog.component';
 import {ConfirmDeleteComponent} from '../confirm-delete/confirm-delete.component';
+import {AccountService} from '../account.service';
 
 export interface Board {
   boardId: number;
@@ -38,6 +39,7 @@ export class BoardsComponent implements OnInit {
   boards: Array<Board>;
   selection = new SelectionModel<Board>(allowMultiSelect, initialSelection);
   boardType: number;
+  isLoggedIn = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -45,10 +47,15 @@ export class BoardsComponent implements OnInit {
     private boardsService: BoardsService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private accountService: AccountService) { }
 
-  public  getBoards(boardId: number){
-    this.boardsService.getBoards(boardId).subscribe((data:  Array<Board>) => {
+  public  getBoards(boardType: number){
+
+    this.isLoggedIn = this.accountService.getKey() !== '' && this.accountService.getKey() != null ;
+
+
+    this.boardsService.getBoards(boardType).subscribe((data:  Array<Board>) => {
       this.boards  =  data;
       this.dataSource = new MatTableDataSource(this.boards);
     });
@@ -64,13 +71,17 @@ export class BoardsComponent implements OnInit {
       width: '600px'
     });
 
-    dialogRef.afterClosed().subscribe((refresh: boolean) => {
+    dialogRef.afterClosed().subscribe((added: boolean) => {
 
-      this.snackBar.open('Board Added', '', {
-        duration: 2000,
-      });
+      if (added) {
+        this.snackBar.open('Board Added', '', {
+          duration: 2000,
+        });
 
-      this.getBoards(this.boardType);
+        this.getBoards(this.boardType);
+      }
+
+
     });
   }
 
@@ -97,19 +108,6 @@ export class BoardsComponent implements OnInit {
         });
       }
     });
-
-    // console.log('delete board', board);
-    // this.boardsService.deleteBoard(board.boardId).subscribe(() => {
-    //   console.log('done');
-    //   this.getBoards(this.boardType);
-    //
-    //   this.snackBar.open('Board Deleted', '', {
-    //     duration: 2000,
-    //   });
-    //
-    // }, (err) => {
-    //   console.log(err);
-    // });
   }
 
   showEdit(a: any) {
@@ -121,13 +119,16 @@ export class BoardsComponent implements OnInit {
       data: a
     });
 
-    dialogRef.afterClosed().subscribe((refresh: boolean) => {
+    dialogRef.afterClosed().subscribe((edited: boolean) => {
 
-      this.snackBar.open('Board Saved', '', {
-        duration: 2000,
-      });
+      if (edited) {
+        this.snackBar.open('Board Saved', '', {
+          duration: 2000,
+        });
 
-      this.getBoards(this.boardType);
+        this.getBoards(this.boardType);
+      }
+
     });
 
     // dialogRef..boardData = a;
@@ -156,6 +157,11 @@ export class BoardsComponent implements OnInit {
       // In a real app: dispatch action to load the details here.
     });
 
+
+    this.accountService.loggedIn.subscribe((loggedIn) => {
+      this.isLoggedIn = loggedIn;
+      this.getBoards(this.boardType);
+    });
   }
 
 }

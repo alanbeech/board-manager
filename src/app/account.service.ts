@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
   API_URL = 'https://beachclean.net';
+
+  loggedIn = new Subject<boolean>();
 
   constructor(private  httpClient:  HttpClient) { }
 
@@ -24,6 +26,7 @@ export class AccountService {
 
   logout() {
     // Todo: need to also call the service to clear it
+    this.loggedIn.next(false);
     localStorage.clear();
   }
 }
