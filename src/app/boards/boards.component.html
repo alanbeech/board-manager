@@ -21,28 +21,10 @@
 
     <mat-card-content>
       <table mat-table [dataSource]="dataSource">
-
-        <
-        <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
-
-        boardId: number;
-        twoMinuteId: string;
-        name: string;
-        location: string;
-        description: string;
-        photoUrls: string[];
-        thumbnailUrls: string[];
-        latitude: number;
-        longitude: number;
-        ownerIds: string[];
-        boardType: number;
-        status: number;
-
         <!-- Position Column -->
         <ng-container matColumnDef="position">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let element" style="width: 30px;">
+          <td mat-cell  (click)="viewBoard(element)" *matCellDef="let element" style="width: 30px;">
             <mat-icon *ngIf="element.boardType=='0'" class="icon beach-clean">event_note</mat-icon>
             <mat-icon *ngIf="element.boardType=='1'" class="icon street-clean">event_note</mat-icon>
             <mat-icon *ngIf="element.boardType=='2'" class="icon litter-pick">event_note</mat-icon>
@@ -52,24 +34,29 @@
         <!-- Name Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Name</th>
-          <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+          <td mat-cell (click)="viewBoard(element)" *matCellDef="let element">
+
+              {{element.name}}
+
+
+          </td>
         </ng-container>
 
         <!-- Weight Column -->
         <ng-container matColumnDef="weight">
           <th mat-header-cell *matHeaderCellDef> Location Description</th>
-          <td mat-cell *matCellDef="let element"> {{element.location}}</td>
+          <td mat-cell (click)="viewBoard(element)" *matCellDef="let element"> {{element.location}}</td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="symbol">
           <th mat-header-cell *matHeaderCellDef> Latitude</th>
-          <td mat-cell *matCellDef="let element"> {{element.latitude}}</td>
+          <td mat-cell (click)="viewBoard(element)" *matCellDef="let element"> {{element.latitude}}</td>
         </ng-container>
 
         <ng-container matColumnDef="longitude">
           <th mat-header-cell *matHeaderCellDef> Longitude</th>
-          <td mat-cell *matCellDef="let element"> {{element.longitude}}</td>
+          <td mat-cell (click)="viewBoard(element)" *matCellDef="let element"> {{element.longitude}}</td>
         </ng-container>
 
         <ng-container matColumnDef="menu">

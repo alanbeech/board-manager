@@ -22,7 +22,10 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { AddDialogComponent } from './add-dialog/add-dialog.component';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 import {Angulartics2Module} from 'angulartics2';
-import {Angulartics2GoogleTagManager} from 'angulartics2/gtm';
+import { Angulartics2GoogleTagManager } from 'angulartics2/gtm';
+import { ViewBoardComponent } from './view-board/view-board.component';
+import { BoardTypePipe } from './board-type.pipe';
+import { BoardStatusPipe } from './status.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import {Angulartics2GoogleTagManager} from 'angulartics2/gtm';
     LoginDialogComponent,
     EditDialogComponent,
     AddDialogComponent,
-    ConfirmDeleteComponent
+    ConfirmDeleteComponent,
+    ViewBoardComponent,
+    BoardTypePipe,
+    BoardStatusPipe
   ],
   imports: [
     BrowserAnimationsModule,
@@ -56,7 +62,7 @@ import {Angulartics2GoogleTagManager} from 'angulartics2/gtm';
     Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ])
   ],
   entryComponents: [
-    LoginDialogComponent, EditDialogComponent, AddDialogComponent, ConfirmDeleteComponent
+    LoginDialogComponent, EditDialogComponent, AddDialogComponent, ConfirmDeleteComponent, ViewBoardComponent
   ],
 
   providers: [],

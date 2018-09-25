@@ -1,0 +1,18 @@
+.view-board {
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+
+  h2 {
+    margin-bottom: 0;
+  }
+
+  .item {
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+    label {
+      display: inline-block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  }
+}

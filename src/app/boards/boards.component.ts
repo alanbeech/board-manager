@@ -8,6 +8,7 @@ import {LoginResponseModel} from '../login-response.model';
 import {AddDialogComponent} from '../add-dialog/add-dialog.component';
 import {ConfirmDeleteComponent} from '../confirm-delete/confirm-delete.component';
 import {AccountService} from '../account.service';
+import {ViewBoardComponent} from '../view-board/view-board.component';
 
 export interface Board {
   boardId: number;
@@ -146,6 +147,24 @@ export class BoardsComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  viewBoard(board: Board) {
+
+    //ViewBoardComponent
+
+    const dialogRef = this.dialog.open(ViewBoardComponent, {
+
+      width: '600px',
+      data: board
+    });
+
+    dialogRef.afterClosed().subscribe((edited: boolean) => {
+
+
+
+    });
+
   }
 
   ngOnInit() {
