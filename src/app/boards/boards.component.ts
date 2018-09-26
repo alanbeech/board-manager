@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatInput, MatPaginator, MatTableDataSource} from '@angular/material';
 import {BoardsService} from '../boards.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
@@ -43,7 +43,7 @@ export class BoardsComponent implements OnInit {
   boardType: number;
   isLoggedIn = false;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatInput) filterInput: MatInput;
 
   constructor(
     private boardsService: BoardsService,
@@ -51,13 +51,14 @@ export class BoardsComponent implements OnInit {
     public dialog: MatDialog,
     private accountService: AccountService,
     private notificationService: NotificationsService) { }
-  getBoards(boardType: number){
+  getBoards(boardType: number) {
 
     this.isLoggedIn = this.accountService.getKey() !== '' && this.accountService.getKey() != null ;
 
     this.boardsService.getBoards(boardType).subscribe((data:  Array<Board>) => {
       this.boards  =  data;
       this.dataSource = new MatTableDataSource(this.boards);
+      this.applyFilter(this.filterInput.value);
     }, (error) => {
       this.notificationService.showNotification(`Sorry. We are unable to get the boards at this time. Please try later`, NotificationType.Error);
     });
