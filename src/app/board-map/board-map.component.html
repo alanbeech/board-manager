@@ -1,3 +1,11 @@
-<agm-map [latitude]="lat" [longitude]="lng">
-  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+<agm-map [latitude]="49" [longitude]="0" [zoom]="5">
+
+  <ng-container *ngFor="let board of boards">
+    <agm-marker *ngIf="board.boardType == 0" (markerClick)="viewBoard(board)" [iconUrl]="'https://beachclean.net/images/orange-dot.png'" [latitude]="board.latitude" [longitude]="board.longitude"></agm-marker>
+
+    <agm-marker *ngIf="board.boardType == 1" (markerClick)="viewBoard(board)" [iconUrl]="'https://beachclean.net/images/green-dot.png'" [latitude]="board.latitude" [longitude]="board.longitude"></agm-marker>
+
+    <agm-marker *ngIf="board.boardType == 2" (markerClick)="viewBoard(board)" [iconUrl]="'https://beachclean.net/images/ltblue-dot.png'" [latitude]="board.latitude" [longitude]="board.longitude"></agm-marker>
+  </ng-container>
+
 </agm-map>
