@@ -5,6 +5,8 @@ import {Board} from '../boards/boards.component';
 import {BoardsService} from '../boards.service';
 import {Status} from '../status.interface';
 import {BoardType} from '../board-type.interface';
+import {NotificationsService} from '../services/notifications.service';
+import {NotificationType} from '../services/notification-type.enum';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -50,22 +52,18 @@ export class EditDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Board,
     private boardsService: BoardsService,
-    public dialogRef: MatDialogRef<EditDialogComponent>) { }
+    public dialogRef: MatDialogRef<EditDialogComponent>,
+    private notificationService: NotificationsService) { }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.editBoardForm.value);
     this.boardsService.updateBoard(this.editBoardForm.value).subscribe(() => {
-      console.log('ok');
       this.dialogRef.close(true);
     }, (error) => {
-      console.log(error);
+      this.notificationService.showNotification(`Sorry. We were unable to update your board at this time. Please try later.`, NotificationType.Error);
     });
   }
 
   ngOnInit() {
-    // this.boardId = this.boardData.boardId;
-
     this.selected = this.data.status.toString();
     this.selectedBoardType = this.data.boardType.toString();
 

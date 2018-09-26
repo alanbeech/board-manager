@@ -52,22 +52,12 @@ export class ViewBoardComponent implements OnInit {
     public dialogRef: MatDialogRef<ViewBoardComponent>) { }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    // console.warn(this.editBoardForm.value);
-    // this.boardsService.updateBoard(this.editBoardForm.value).subscribe(() => {
-    //   console.log('ok');
     this.dialogRef.close();
-    // }, (error) => {
-    //   console.log(error);
-    // });
   }
 
   ngOnInit() {
-    // this.boardId = this.boardData.boardId;
-
     this.selected = this.data.status.toString();
     this.selectedBoardType = this.data.boardType.toString();
-
   }
 
 }

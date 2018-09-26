@@ -1,11 +1,13 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Board} from '../boards/boards.component';
 import {BoardType} from '../board-type.interface';
 import {Status} from '../status.interface';
 import {FormControl, FormGroup} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 import {BoardsService} from '../boards.service';
 import {Angulartics2} from 'angulartics2';
+import {NotificationsService} from '../services/notifications.service';
+import {NotificationType} from '../services/notification-type.enum';
 
 @Component({
   selector: 'app-add-dialog',
@@ -50,34 +52,23 @@ export class AddDialogComponent implements OnInit {
   constructor(
     private boardsService: BoardsService,
     public dialogRef: MatDialogRef<AddDialogComponent>,
-    private angulartics2: Angulartics2) { }
+    private angulartics2: Angulartics2,
+    private notificationService: NotificationsService) { }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(JSON.stringify(this.editBoardForm.value));
     this.boardsService.addBoard(this.editBoardForm.value).subscribe(() => {
       console.log('ok');
       this.dialogRef.close(true);
-
-
-
     }, (error) => {
-      console.log(error);
+      this.notificationService.showNotification(`Sorry. Unable to add a board at the moment. Please try again later.`, NotificationType.Error);
     });
   }
 
   ngOnInit() {
-    // this.selected = this.data.status.toString();
-    // this.selectedBoardType = this.data.boardType.toString();
-
     this.angulartics2.eventTrack.next({
       action: 'myAction',
       properties: { category: 'myCategory' },
     });
-
-
-
-
   }
 
 }

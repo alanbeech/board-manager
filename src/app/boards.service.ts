@@ -32,7 +32,6 @@ export class BoardsService {
   }
 
   addBoard(value: Board) {
-
     console.log(value);
     let headers = new HttpHeaders();
     headers = headers.set('ZUMO-API-VERSION', '2.0.0');
@@ -43,9 +42,6 @@ export class BoardsService {
   }
 
   deleteBoard(boardId: number) {
-
-    console.log(`${this.API_URL}/boardsapp/${boardId}`);
-
     let headers = new HttpHeaders();
     headers = headers.set('ZUMO-API-VERSION', '2.0.0');
     headers = headers.set('Authorization', 'Bearer ' + this.accountService.getKey());
