@@ -64,7 +64,7 @@ import { BoardMapComponent } from './board-map/board-map.component';
     MatSnackBarModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ]),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCIYJ7AIblfR8Cb7CDIa8alCtUUJXXmgiw'
+      apiKey: 'AIzaSyDF3SvNYnbCxY9jQ4urO5em5LBD5d3A8d8'
     })
   ],
   entryComponents: [
