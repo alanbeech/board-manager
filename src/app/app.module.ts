@@ -26,6 +26,8 @@ import { Angulartics2GoogleTagManager } from 'angulartics2/gtm';
 import { ViewBoardComponent } from './view-board/view-board.component';
 import { BoardTypePipe } from './board-type.pipe';
 import { BoardStatusPipe } from './status.pipe';
+import {AgmCoreModule} from '@agm/core';
+import { BoardMapComponent } from './board-map/board-map.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { BoardStatusPipe } from './status.pipe';
     ConfirmDeleteComponent,
     ViewBoardComponent,
     BoardTypePipe,
-    BoardStatusPipe
+    BoardStatusPipe,
+    BoardMapComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -59,7 +62,10 @@ import { BoardStatusPipe } from './status.pipe';
     ReactiveFormsModule,
     MatSelectModule,
     MatSnackBarModule,
-    Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ])
+    Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ]),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCIYJ7AIblfR8Cb7CDIa8alCtUUJXXmgiw'
+    })
   ],
   entryComponents: [
     LoginDialogComponent, EditDialogComponent, AddDialogComponent, ConfirmDeleteComponent, ViewBoardComponent
