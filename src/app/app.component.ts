@@ -56,19 +56,19 @@ export class AppComponent implements OnInit {
       this.isLoggedIn = true;
     }
 
-    this.angulartics2.eventTrack.next({
-      action: 'myAction',
-      properties: {
-        category: 'myCategory',
-        label: 'myLabel',
-      },
-    });
+    // this.angulartics2.eventTrack.next({
+    //   action: 'myAction',
+    //   properties: {
+    //     category: 'myCategory',
+    //     label: 'myLabel',
+    //   },
+    // });
 
 
     // @ts-ignore
-    gtag('event', '1234', {
-      'event_category' : 'bbb2',
-      'event_label' : 'ccc3'
-    });
+    // gtag('event', '1234', {
+    //   'event_category' : 'bbb2',
+    //   'event_label' : 'ccc3'
+    // });
   }
 }
