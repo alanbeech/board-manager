@@ -1,29 +1,93 @@
-<h2 mat-dialog-title>Log in</h2>
 <mat-dialog-content>
-  <div class="example-container">
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <mat-form-field style="width: 100%">
-        <input matInput formControlName="email" placeholder="Enter your email">
-        <!--<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>-->
-      </mat-form-field>
+  <mat-tab-group>
+    <mat-tab label="LOG IN">
 
-      <mat-form-field style="width: 100%">
-        <input matInput formControlName="password" placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
-        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-      </mat-form-field>
+      <div style="margin-bottom: 10px; margin-top: 10px;">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <mat-form-field style="width: 100%">
+            <input matInput formControlName="email" placeholder="Enter your email">
+            <!--<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>-->
+          </mat-form-field>
 
-    </form>
+          <mat-form-field style="width: 100%">
+            <input matInput formControlName="password" placeholder="Enter your password"
+                   [type]="hide ? 'password' : 'text'">
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </mat-form-field>
+        </form>
 
-  </div>
+        <p *ngIf="loginErrorMessage" class="mat-error">
+          <strong>Error:</strong> {{loginErrorMessage}}
+        </p>
+
+        <p class="mat-warn">
+          <strong>Note:</strong> If you have already signed up on the #2minutebeachclean app you will already have a 2minute account and should sign in using the email and password you used for that. If you have forgotten the password, you can reset it below by clicking on 'forgotten password'
+        </p>
+
+        <mat-dialog-actions style="float: right">
+          <div style="height: 50px">
+            <button mat-button mat-dialog-close>Forgotten Password</button>
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button (click)="login()" mat-button mat-raised-button color="primary">Log in</button>
+          </div>
+
+        </mat-dialog-actions>
+      </div>
+    </mat-tab>
+    <mat-tab label="CREATE FREE 2MINUTE ACCOUNT">
+
+      <div style="margin-bottom: 10px; margin-top: 10px;">
+        <form [formGroup]="createForm">
+          <mat-form-field style="width: 100%">
+            <input matInput formControlName="email" placeholder="Enter your email">
+            <!--<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>-->
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%">
+            <input matInput formControlName="onlineId" placeholder="Enter an online ID (a public name)"
+                   [type]="hide ? 'password' : 'text'">
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%">
+            <input matInput formControlName="password" placeholder="Enter your password"
+                   [type]="hide ? 'password' : 'text'">
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field style="width: 100%">
+            <input matInput formControlName="passwordConfirm" placeholder="Re-enter password"
+                   [type]="hide ? 'password' : 'text'">
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </mat-form-field>
+        </form>
+
+        <p *ngIf="createErrorMessage" class="mat-error">
+          <strong>Error:</strong> {{createErrorMessage}}
+        </p>
+
+        <p  class="mat-warn">
+          <strong>Note:</strong> If you have already signed up on the #2minutebeachclean app you will already have a 2minute account and should sign in using the email and password you used for that. If you have forgotten the password, you can reset it below by clicking on 'forgotten password'
+        </p>
+
+        <mat-dialog-actions style="float: right">
+          <div style="height: 50px">
+            <button mat-button mat-dialog-close>Forgotten Password</button>
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button (click)="createAccount()" mat-button mat-raised-button color="primary">Create Account</button>
+          </div>
+
+        </mat-dialog-actions>
+
+
+
+      </div>
+
+
+    </mat-tab>
+  </mat-tab-group>
+
 </mat-dialog-content>
+<!--<h2 mat-dialog-title>Log in</h2>-->
 
-<mat-dialog-actions  style="float: right">
-
-  <button mat-button mat-dialog-close>Forgotten Password</button>
-
-    <button mat-button mat-dialog-close>Cancel</button>
-    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-    <button (click)="login()" mat-button mat-raised-button color="primary">Log in</button>
-
-</mat-dialog-actions>

@@ -1,6 +1,6 @@
 <div class="boards">
 
-  <button class="add-button" mat-fab (click)="addBoard()" color="primary">
+  <button *ngIf="isLoggedIn" class="add-button" mat-fab (click)="addBoard()" color="primary">
     <mat-icon
       class="example-icon">add</mat-icon>
   </button>

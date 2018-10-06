@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
   login() {
     const dialogRef = this.dialog.open(LoginDialogComponent, {
-      height: '280px',
+      // sheight: '280px',
       width: '600px'
     });
 
