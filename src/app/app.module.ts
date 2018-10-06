@@ -10,7 +10,7 @@ import {
   MatCheckboxModule, MatDialogModule,
   MatFormFieldModule,
   MatIconModule, MatInputModule, MatMenuModule, MatPaginatorModule, MatSelectModule, MatSnackBarModule,
-  MatTableModule,
+  MatTableModule, MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
@@ -62,6 +62,7 @@ import { BoardMapComponent } from './board-map/board-map.component';
     ReactiveFormsModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatTabsModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBDUbFNWPFMqg3PkRP7icfWt1jDZmZCbic'
