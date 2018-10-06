@@ -5,13 +5,15 @@
       class="example-icon">add</mat-icon>
   </button>
 
-
   <mat-card class="mat-elevation-z0">
 
     <mat-card-title-group>
-
       <mat-card-title>
-        All Boards
+        <ng-container *ngIf="!boardType && boardType != 0">All</ng-container>
+        <ng-container *ngIf="boardType == 0">#2minutebeacheclean</ng-container>
+        <ng-container *ngIf="boardType == 1">#2minutelitterpick</ng-container>
+        <ng-container *ngIf="boardType == 2">#2minutestreetclean</ng-container>
+         Boards
       </mat-card-title>
     </mat-card-title-group>
 

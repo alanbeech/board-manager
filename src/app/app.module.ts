@@ -7,7 +7,7 @@ import {AppComponent} from './app.component';
 import {
   MatButtonModule,
   MatCardModule,
-  MatCheckboxModule, MatDialogModule,
+  MatCheckboxModule, MatDialogModule, MatDividerModule,
   MatFormFieldModule,
   MatIconModule, MatInputModule, MatMenuModule, MatPaginatorModule, MatSelectModule, MatSnackBarModule,
   MatTableModule, MatTabsModule,
@@ -63,6 +63,7 @@ import { BoardMapComponent } from './board-map/board-map.component';
     MatSelectModule,
     MatSnackBarModule,
     MatTabsModule,
+    MatDividerModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBDUbFNWPFMqg3PkRP7icfWt1jDZmZCbic'

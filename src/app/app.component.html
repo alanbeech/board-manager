@@ -1,23 +1,37 @@
 <mat-toolbar color="primary">
   <button routerLink="/boards" mat-flat-button color="primary">
-    #2Minute Boards Manager
+    #2Minute Manager
   </button>
   <span class="example-fill-remaining-space">
-    <button routerLink="/boards" mat-flat-button color="primary">
-      All
-    </button>
-    <button routerLink="/boards/0" mat-flat-button color="primary">
-      Beach Clean
-    </button>
-    <button routerLink="/boards/2" mat-flat-button color="primary">
-      Street Clean
-    </button>
-    <button routerLink="/boards/1" mat-flat-button color="primary">
-      Litter Pick
-    </button>
-    <button routerLink="/map" mat-flat-button color="primary">
-      Map
-    </button>
+
+    <button mat-button [matMenuTriggerFor]="menu">Boards</button>
+    <mat-menu #menu="matMenu">
+      <button routerLink="/boards" mat-menu-item>
+        <mat-icon class="icon">event_note</mat-icon>
+        All
+      </button>
+      <button routerLink="/boards/0" mat-menu-item>
+        <mat-icon class="icon beach-clean">event_note</mat-icon>
+        Beach Clean
+      </button>
+      <button routerLink="/boards/2"  mat-menu-item>
+        <mat-icon class="icon street-clean">event_note</mat-icon>
+        Street Clean
+      </button>
+      <button routerLink="/boards/1" mat-menu-item>
+        <mat-icon class="icon litter-pick">event_note</mat-icon>
+        Litter Pick
+      </button>
+
+      <mat-divider></mat-divider>
+
+      <button routerLink="/map" mat-menu-item>
+        <mat-icon class="icon">map</mat-icon>
+        Map
+      </button>
+    </mat-menu>
+
+
   </span>
   <span>
     <button *ngIf="!isLoggedIn" (click)="login()" mat-flat-button color="primary">

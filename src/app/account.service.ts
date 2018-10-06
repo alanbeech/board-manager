@@ -11,6 +11,10 @@ export class RegisterModel {
               public confirmPassword: string) {}
 }
 
+export class ResetPasswordModel {
+  constructor(public email: string) {}
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -43,5 +47,11 @@ export class AccountService {
     const registerModel = new RegisterModel(email, email, onlineId, password, passwordConfirm);
     console.log(registerModel);
     return this.httpClient.post(`${this.API_URL}/account/registerapi`, registerModel);
+  }
+
+  sendPasswordResetEmail(email: string) {
+    const resetPasswordModel = new ResetPasswordModel(email);
+    console.log(resetPasswordModel);
+    return this.httpClient.post(`${this.API_URL}/account/MobileForgotPassword`, resetPasswordModel);
   }
 }

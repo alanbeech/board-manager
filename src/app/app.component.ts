@@ -8,6 +8,7 @@ import {Angulartics2} from 'angulartics2';
 import {NotificationsService} from './services/notifications.service';
 import {NotificationType} from './services/notification-type.enum';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

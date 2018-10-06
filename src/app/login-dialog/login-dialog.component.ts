@@ -24,6 +24,8 @@ import {HttpErrorResponse} from '@angular/common/http';
 export class LoginDialogComponent implements OnInit {
   createErrorMessage: string;
   loginErrorMessage: string;
+  resetErrorMessage: string;
+  selectedTabIndex = 0;
 
   loginForm = new FormGroup({
     email: new FormControl(''),
@@ -44,6 +46,10 @@ export class LoginDialogComponent implements OnInit {
     passwordConfirm: new FormControl('')
   });
 
+  resetPasswordForm = new FormGroup({
+    email: new FormControl('')
+  });
+
   constructor(
     public dialogRef: MatDialogRef<LoginDialogComponent>,
     private accountService: AccountService,
@@ -57,10 +63,16 @@ export class LoginDialogComponent implements OnInit {
   }
 
   login() {
-    this.accountService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe((loginResponse: LoginResponseModel) => {
+
+    this.doLogin(this.loginForm.value.email, this.loginForm.value.password);
+  }
+
+  doLogin(email: string, password: string) {
+    this.accountService.login(email, password).subscribe((loginResponse: LoginResponseModel) => {
       this.accountService.storeKey(loginResponse.access_token);
       this.dialogRef.close(loginResponse);
       this.accountService.loggedIn.next(true);
+      this.loginErrorMessage = '';
       this.notificationService.showNotification(`You have successfully logged in. Welcome!`, NotificationType.Success);
     }, (error) => {
       console.log(error);
@@ -74,22 +86,47 @@ export class LoginDialogComponent implements OnInit {
       // this.accountService.storeKey(loginResponse.access_token);
       this.dialogRef.close(loginResponse);
       this.accountService.loggedIn.next(true);
-      this.notificationService.showNotification(`You have successfully logged in. Welcome!`, NotificationType.Success);
+      this.createErrorMessage = '';
+      this.notificationService.showNotification(`You have successfully created an account. Welcome!`, NotificationType.Success);
+      this.doLogin(this.createForm.value.email, this.createForm.value.password);
     }, (error: HttpErrorResponse) => {
-
-      console.log(error);
-
       switch (error.status) {
         case 409: // already exists
           // this.notificationService.showNotification(error.message, NotificationType.Error);
-          this.createErrorMessage = 'Sorry. We were unable to crate an account as an account with the email address supplied already exists';
+          this.createErrorMessage = 'Sorry. We were unable to create an account as an account with the email address supplied already exists';
           break;
         default:
-          this.notificationService.showNotification(error.message, NotificationType.Error);
+          this.createErrorMessage = 'Sorry. We were unable to create an account at this time. Please try later.';
+          // this.notificationService.showNotification(error.message, NotificationType.Error);
       }
 
     });
 
+  }
+
+  sendPasswordResetEmail() {
+    this.accountService.sendPasswordResetEmail(this.resetPasswordForm.value.email).subscribe((loginResponse: LoginResponseModel) => {
+      this.resetErrorMessage = '';
+      this.selectedTabIndex = 0;
+      this.notificationService.showNotification(`We have sent you a password reset email. Please check your inbox.`, NotificationType.Success);
+    }, (error: HttpErrorResponse) => {
+
+      console.log(error);
+      //
+      switch (error.status) {
+        case 200:
+          this.resetErrorMessage = '';
+          this.selectedTabIndex = 0;
+          this.notificationService.showNotification(`We have sent you a password reset email. Please check your inbox.`, NotificationType.Success);
+          break;
+        case 404: // not found
+          this.resetErrorMessage = 'Sorry. We cannot find an account registered using the email provided.';
+          break;
+        default:
+          this.resetErrorMessage = 'Sorry. We were unable to send you a password reset email at this time. Please try again later.';
+      }
+
+    });
   }
 
   ngOnInit() {
