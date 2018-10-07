@@ -5,6 +5,7 @@ export class LoginResponseModel {
   public access_token: string;
   public token_type: string;
   public userName: string;
+  public roles: string;
 }
 
 // [JsonProperty(".issued")]

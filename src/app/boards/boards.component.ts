@@ -42,6 +42,7 @@ export class BoardsComponent implements OnInit {
   selection = new SelectionModel<Board>(allowMultiSelect, initialSelection);
   boardType: number;
   isLoggedIn = false;
+  isAdmin = false;
 
   @ViewChild(MatInput) filterInput: MatInput;
 
@@ -54,6 +55,7 @@ export class BoardsComponent implements OnInit {
   getBoards(boardType: number) {
 
     this.isLoggedIn = this.accountService.getKey() !== '' && this.accountService.getKey() != null ;
+    this.isAdmin = this.accountService.isAdmin();
 
     this.boardsService.getBoards(boardType).subscribe((data:  Array<Board>) => {
       this.boards  =  data;
@@ -141,6 +143,10 @@ export class BoardsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((edited: boolean) => { });
+  }
+
+  assignOwners() {
+    alert('assign owners coming soon');
   }
 
   ngOnInit() {

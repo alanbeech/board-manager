@@ -29,12 +29,19 @@ export class AccountService {
     return this.httpClient.post(`${this.API_URL}/token`, `grant_type=password&username=${email}&password=${password}`);
   }
 
-  storeKey(authKey: string) {
+  storeKey(authKey: string, roles: string) {
     localStorage.setItem('authKey', authKey);
+    localStorage.setItem('roles', roles);
   }
 
   getKey(): string {
     return localStorage.getItem('authKey');
+  }
+
+  isAdmin(): boolean {
+    const roles: string[] = JSON.parse(localStorage.getItem('roles')) || [];
+
+    return roles.find(r => r === 'Admin') ? true : false;
   }
 
   logout() {
