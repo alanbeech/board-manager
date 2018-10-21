@@ -5,7 +5,7 @@ import {BoardMapComponent} from './board-map/board-map.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/boards', pathMatch: 'full' },
   { path: 'boards/:filter', component: BoardsComponent },
   { path: 'boards', component: BoardsComponent },
   { path: 'map', component: BoardMapComponent },

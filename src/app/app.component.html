@@ -61,7 +61,7 @@
   </mat-drawer>
   <mat-drawer-content>
     <div [ngClass]="{'sidebar-open': isOpen}">
-      <app-toolbar 
+      <app-toolbar
         (onToggleSidebarClicked)="drawer.toggle()"
         [isLoggedIn]="isLoggedIn"
         (onLoginClicked)="login()"
