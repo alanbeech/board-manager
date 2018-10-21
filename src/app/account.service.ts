@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
+import {LoginResponseModel} from './login-response.model';
 
 export class RegisterModel {
 
@@ -29,13 +30,18 @@ export class AccountService {
     return this.httpClient.post(`${this.API_URL}/token`, `grant_type=password&username=${email}&password=${password}`);
   }
 
-  storeKey(authKey: string, roles: string) {
-    localStorage.setItem('authKey', authKey);
-    localStorage.setItem('roles', roles);
+  storeKey(loginResponse: LoginResponseModel) {
+    localStorage.setItem('authKey', loginResponse.access_token);
+    localStorage.setItem('roles', loginResponse.roles);
+    localStorage.setItem('username', loginResponse.userName);
   }
 
   getKey(): string {
     return localStorage.getItem('authKey');
+  }
+
+  getUsername(): string {
+    return localStorage.getItem('username');
   }
 
   isAdmin(): boolean {

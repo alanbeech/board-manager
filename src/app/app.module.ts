@@ -5,11 +5,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {AppComponent} from './app.component';
 import {
+  MatBadgeModule,
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule, MatDialogModule, MatDividerModule,
   MatFormFieldModule,
-  MatIconModule, MatInputModule, MatMenuModule, MatPaginatorModule, MatSelectModule, MatSnackBarModule,
+  MatIconModule, MatInputModule, MatMenuModule, MatPaginatorModule, MatSelectModule, MatSidenavModule, MatSnackBarModule,
   MatTableModule, MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
@@ -28,6 +29,10 @@ import { BoardTypePipe } from './board-type.pipe';
 import { BoardStatusPipe } from './status.pipe';
 import {AgmCoreModule} from '@agm/core';
 import { BoardMapComponent } from './board-map/board-map.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProgressIndicatorsComponent } from './progress-indicators/progress-indicators.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { MenuToolbarComponent } from './menu-toolbar/menu-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +45,11 @@ import { BoardMapComponent } from './board-map/board-map.component';
     ViewBoardComponent,
     BoardTypePipe,
     BoardStatusPipe,
-    BoardMapComponent
+    BoardMapComponent,
+    DashboardComponent,
+    ProgressIndicatorsComponent,
+    ToolbarComponent,
+    MenuToolbarComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -64,6 +73,8 @@ import { BoardMapComponent } from './board-map/board-map.component';
     MatSnackBarModule,
     MatTabsModule,
     MatDividerModule,
+    MatBadgeModule,
+    MatSidenavModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBDUbFNWPFMqg3PkRP7icfWt1jDZmZCbic'

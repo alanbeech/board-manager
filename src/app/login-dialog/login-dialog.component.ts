@@ -70,7 +70,7 @@ export class LoginDialogComponent implements OnInit {
   doLogin(email: string, password: string) {
     this.accountService.login(email, password).subscribe((loginResponse: LoginResponseModel) => {
       console.log(loginResponse);
-      this.accountService.storeKey(loginResponse.access_token, loginResponse.roles);
+      this.accountService.storeKey(loginResponse);
       this.dialogRef.close(loginResponse);
       this.accountService.loggedIn.next(true);
       this.loginErrorMessage = '';

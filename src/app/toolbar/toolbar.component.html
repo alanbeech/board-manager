@@ -1,0 +1,54 @@
+<mat-toolbar class="toolbar" color="primary">
+
+  <button (click)="toggleSidebar()" mat-icon-button>
+    <mat-icon aria-label="Show Menu">menu</mat-icon>
+  </button>
+
+  <span class="title">#2Minute Manager</span>
+
+  <!--<button routerLink="/" mat-flat-button color="primary">-->
+    <!--#2Minute Manager-->
+  <!--</button>-->
+  <span class="fill-remaining-space">
+
+
+    <!--<button mat-button [matMenuTriggerFor]="menu">Boards</button>-->
+    <!--<mat-menu #menu="matMenu">-->
+      <!--<button routerLink="/boards" mat-menu-item>-->
+        <!--<mat-icon class="icon">event_note</mat-icon>-->
+        <!--All-->
+      <!--</button>-->
+      <!--<button routerLink="/boards/0" mat-menu-item>-->
+        <!--<mat-icon class="icon beach-clean">event_note</mat-icon>-->
+        <!--Beach Clean-->
+      <!--</button>-->
+      <!--<button routerLink="/boards/2"  mat-menu-item>-->
+        <!--<mat-icon class="icon street-clean">event_note</mat-icon>-->
+        <!--Street Clean-->
+      <!--</button>-->
+      <!--<button routerLink="/boards/1" mat-menu-item>-->
+        <!--<mat-icon class="icon litter-pick">event_note</mat-icon>-->
+        <!--Litter Pick-->
+      <!--</button>-->
+
+      <!--<mat-divider></mat-divider>-->
+
+      <!--<button routerLink="/map" mat-menu-item>-->
+        <!--<mat-icon class="icon">map</mat-icon>-->
+        <!--Map-->
+      <!--</button>-->
+    <!--</mat-menu>-->
+
+
+  </span>
+  <span>
+    <button *ngIf="!isLoggedIn" (click)="login()" mat-flat-button color="primary">
+      Log in / Register
+    </button>
+    <button *ngIf="isLoggedIn" (click)="logout()" mat-flat-button color="primary">
+      <mat-icon class="example-icon">logout</mat-icon>
+      Log out
+    </button>
+  </span>
+</mat-toolbar>
+

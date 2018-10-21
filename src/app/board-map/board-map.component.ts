@@ -18,7 +18,13 @@ export class BoardMapComponent implements OnInit {
   lat2: number = 52.678418;
   lng2: number = 6.809007;
   boards: Array<Board>;
-  constructor(private accountService: AccountService, private boardsService: BoardsService, public dialog: MatDialog) { }
+  width: number;
+  height: number;
+
+  constructor(private accountService: AccountService, private boardsService: BoardsService, public dialog: MatDialog) {
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+  }
 
   getBoards(boardType: number) {
 

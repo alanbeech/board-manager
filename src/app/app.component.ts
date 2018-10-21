@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   title = 'board-manager';
   isLoggedIn = false;
   email: string;
+  isOpen = false;
 
 
   constructor(
@@ -25,7 +26,9 @@ export class AppComponent implements OnInit {
     private accountService: AccountService,
     angulartics2GoogleTagManager: Angulartics2GoogleTagManager,
     private angulartics2: Angulartics2,
-    private notificationService: NotificationsService) { }
+    private notificationService: NotificationsService) {
+    this.email = accountService.getUsername();
+  }
 
   login() {
     const dialogRef = this.dialog.open(LoginDialogComponent, {
