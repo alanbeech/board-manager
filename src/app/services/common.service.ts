@@ -17,9 +17,11 @@ export class CommonService {
       {value: '3', viewValue: 'In Production'},
       {value: '4', viewValue: 'Build Complete'},
       {value: '5', viewValue: 'Delivered'},
+      {value: '6', viewValue: 'In'}
+
       {value: '100', viewValue: 'Launched'},
       {value: '101', viewValue: 'On Display'},
-      {value: '102', viewValue: 'In'}
+
     ];
   }
 }

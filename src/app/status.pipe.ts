@@ -38,7 +38,7 @@ export class BoardStatusPipe implements PipeTransform {
         return 'Launched';
       case 101:
         return 'On Display';
-      case 102:
+      case 6:
         return 'In';
     }
     return value;
