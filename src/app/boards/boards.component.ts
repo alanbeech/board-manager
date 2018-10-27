@@ -36,13 +36,14 @@ const allowMultiSelect = true;
   styleUrls: ['./boards.component.scss']
 })
 export class BoardsComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'longitude', 'menu'];
+  displayedColumns: string[] = ['position', 'status', 'name', 'weight', 'symbol', 'longitude', 'menu'];
   dataSource: any;
   boards: Array<Board>;
   selection = new SelectionModel<Board>(allowMultiSelect, initialSelection);
   boardType: number;
   isLoggedIn = false;
   isAdmin = false;
+  isLoading = false;
 
   @ViewChild(MatInput) filterInput: MatInput;
 
@@ -57,7 +58,9 @@ export class BoardsComponent implements OnInit {
     this.isLoggedIn = this.accountService.getKey() !== '' && this.accountService.getKey() != null ;
     this.isAdmin = this.accountService.isAdmin();
 
+    this.isLoading = true;
     this.boardsService.getBoards(boardType).subscribe((data:  Array<Board>) => {
+      this.isLoading = false;
       this.boards  =  data;
       this.dataSource = new MatTableDataSource(this.boards);
       this.applyFilter(this.filterInput.value);

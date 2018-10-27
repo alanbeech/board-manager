@@ -8,6 +8,7 @@ import {BoardsService} from '../boards.service';
 import {Angulartics2} from 'angulartics2';
 import {NotificationsService} from '../services/notifications.service';
 import {NotificationType} from '../services/notification-type.enum';
+import {CommonService} from '../services/common.service';
 
 @Component({
   selector: 'app-add-dialog',
@@ -27,15 +28,27 @@ export class AddDialogComponent implements OnInit {
     {value: '2', viewValue: '#2minutestreetclean'},
   ];
 
-  statuses: Status[] = [
-    {value: '0', viewValue: 'General'},
-    {value: '1', viewValue: 'MoreDetailNeeded'},
-    {value: '2', viewValue: 'InitialStages'},
-    {value: '3', viewValue: 'InProduction'},
-    {value: '4', viewValue: 'AwayForWinter'},
-    {value: '5', viewValue: 'NeedsRepair'},
-    {value: '6', viewValue: 'NotOut'},
-  ];
+  // OrderPlaced = 0,
+  // SpecificationAgreed = 1,
+  // PaymentReceived = 2,
+  // InProduction = 3,
+  // BuildComplete = 4,
+  // Delivered = 5,
+  // Out = 6,
+  // SocialMediaPosted = 7,
+  // In = 8
+
+  statuses: Status[]; //  = [
+  //   {value: '0', viewValue: 'OrderPlaced'},
+  //   {value: '1', viewValue: 'SpecificationAgreed'},
+  //   {value: '2', viewValue: 'PaymentReceived'},
+  //   {value: '3', viewValue: 'InProduction'},
+  //   {value: '4', viewValue: 'BuildComplete'},
+  //   {value: '5', viewValue: 'Delivered'},
+  //   {value: '6', viewValue: 'Launched'},
+  //   {value: '7', viewValue: 'Out'},
+  //   {value: '8', viewValue: 'In'}
+  // ];
 
   editBoardForm = new FormGroup({
     // boardId: new FormControl(this.data.boardId),
@@ -53,7 +66,10 @@ export class AddDialogComponent implements OnInit {
     private boardsService: BoardsService,
     public dialogRef: MatDialogRef<AddDialogComponent>,
     private angulartics2: Angulartics2,
-    private notificationService: NotificationsService) { }
+    private notificationService: NotificationsService,
+    private commonServicd: CommonService) {
+    this.statuses = commonServicd.getStatusTypes();
+  }
 
   onSubmit() {
     this.boardsService.addBoard(this.editBoardForm.value).subscribe(() => {

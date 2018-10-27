@@ -7,6 +7,7 @@ import {Status} from '../status.interface';
 import {BoardType} from '../board-type.interface';
 import {NotificationsService} from '../services/notifications.service';
 import {NotificationType} from '../services/notification-type.enum';
+import {CommonService} from '../services/common.service';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -27,15 +28,7 @@ export class EditDialogComponent implements OnInit {
     {value: '2', viewValue: '#2minutestreetclean'},
   ];
 
-  statuses: Status[] = [
-    {value: '0', viewValue: 'General'},
-    {value: '1', viewValue: 'MoreDetailNeeded'},
-    {value: '2', viewValue: 'InitialStages'},
-    {value: '3', viewValue: 'InProduction'},
-    {value: '4', viewValue: 'AwayForWinter'},
-    {value: '5', viewValue: 'NeedsRepair'},
-    {value: '6', viewValue: 'NotOut'},
-  ];
+  statuses: Status[];
 
   editBoardForm = new FormGroup({
     boardId: new FormControl(this.data.boardId),
@@ -53,7 +46,10 @@ export class EditDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Board,
     private boardsService: BoardsService,
     public dialogRef: MatDialogRef<EditDialogComponent>,
-    private notificationService: NotificationsService) { }
+    private notificationService: NotificationsService,
+    private commonService: CommonService) {
+    this.statuses = commonService.getStatusTypes();
+  }
 
   onSubmit() {
     this.boardsService.updateBoard(this.editBoardForm.value).subscribe(() => {

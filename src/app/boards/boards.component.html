@@ -1,5 +1,7 @@
 <div class="boards">
 
+
+
   <button *ngIf="isLoggedIn && isAdmin" class="add-button" mat-fab (click)="addBoard()" color="primary">
     <mat-icon
       class="example-icon">add</mat-icon>
@@ -37,14 +39,17 @@
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Name</th>
           <td mat-cell (click)="viewBoard(element)" *matCellDef="let element">
-
               {{element.name}}
-
-
           </td>
         </ng-container>
 
         <!-- Weight Column -->
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status</th>
+          <td mat-cell (click)="viewBoard(element)" *matCellDef="let element"> {{element.status | boardStatus}}</td>
+        </ng-container>
+
         <ng-container matColumnDef="weight">
           <th mat-header-cell *matHeaderCellDef> Location Description</th>
           <td mat-cell (click)="viewBoard(element)" *matCellDef="let element"> {{element.location}}</td>
@@ -94,5 +99,11 @@
 
   </mat-card>
 
+  <div *ngIf="isLoading" class="spinner">
+    <mat-spinner style="position: relative"></mat-spinner>
+  </div>
 
 </div>
+
+
+

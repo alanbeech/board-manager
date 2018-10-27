@@ -8,10 +8,21 @@ import {
   MatBadgeModule,
   MatButtonModule,
   MatCardModule,
-  MatCheckboxModule, MatDialogModule, MatDividerModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatDividerModule,
   MatFormFieldModule,
-  MatIconModule, MatInputModule, MatMenuModule, MatPaginatorModule, MatSelectModule, MatSidenavModule, MatSnackBarModule,
-  MatTableModule, MatTabsModule,
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSnackBarModule,
+  MatSpinner,
+  MatTableModule,
+  MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +44,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressIndicatorsComponent } from './progress-indicators/progress-indicators.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MenuToolbarComponent } from './menu-toolbar/menu-toolbar.component';
+import { StatusDescriptionPipe } from './status-description.pipe';
 
 @NgModule({
   declarations: [
@@ -49,7 +61,8 @@ import { MenuToolbarComponent } from './menu-toolbar/menu-toolbar.component';
     DashboardComponent,
     ProgressIndicatorsComponent,
     ToolbarComponent,
-    MenuToolbarComponent
+    MenuToolbarComponent,
+    StatusDescriptionPipe
   ],
   imports: [
     BrowserAnimationsModule,
@@ -75,6 +88,7 @@ import { MenuToolbarComponent } from './menu-toolbar/menu-toolbar.component';
     MatDividerModule,
     MatBadgeModule,
     MatSidenavModule,
+    MatProgressSpinnerModule,
     Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBDUbFNWPFMqg3PkRP7icfWt1jDZmZCbic'

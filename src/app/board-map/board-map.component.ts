@@ -1,17 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AccountService} from '../account.service';
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {NotificationType} from '../services/notification-type.enum';
 import {Board} from '../boards/boards.component';
 import {BoardsService} from '../boards.service';
 import {ViewBoardComponent} from '../view-board/view-board.component';
+import {ActivatedRoute} from '@angular/router';
+
+export class PageBase {
+  constructor(public resourceName: string) {
+    console.log(resourceName);
+  }
+}
 
 @Component({
   selector: 'app-board-map',
   templateUrl: './board-map.component.html',
   styleUrls: ['./board-map.component.scss']
 })
-export class BoardMapComponent implements OnInit {
+export class BoardMapComponent extends PageBase implements OnInit {
   title: string = 'My first AGM project';
   lat: number = 51.678418;
   lng: number = 7.809007;
@@ -22,6 +29,7 @@ export class BoardMapComponent implements OnInit {
   height: number;
 
   constructor(private accountService: AccountService, private boardsService: BoardsService, public dialog: MatDialog) {
+    super('BoardMapComponent');
     this.width = window.innerWidth;
     this.height = window.innerHeight;
   }
