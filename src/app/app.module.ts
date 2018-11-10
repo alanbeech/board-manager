@@ -28,41 +28,44 @@ import {
 import { AppRoutingModule } from './app-routing.module';
 import { BoardsComponent } from './boards/boards.component';
 import {HttpClientModule} from '@angular/common/http';
-import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
+import { EditDialogComponent } from './boards/components/edit-dialog/edit-dialog.component';
 import { AddDialogComponent } from './add-dialog/add-dialog.component';
-import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
+import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-delete.component';
 import {Angulartics2Module} from 'angulartics2';
 import { Angulartics2GoogleTagManager } from 'angulartics2/gtm';
-import { ViewBoardComponent } from './view-board/view-board.component';
-import { BoardTypePipe } from './board-type.pipe';
-import { BoardStatusPipe } from './status.pipe';
+import { ViewBoardComponent } from './boards/components/view-board/view-board.component';
+import { BoardTypePipe } from './boards/pipes/board-type.pipe';
+import { BoardStatusPipe } from './boards/pipes/status.pipe';
 import {AgmCoreModule} from '@agm/core';
-import { BoardMapComponent } from './board-map/board-map.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProgressIndicatorsComponent } from './progress-indicators/progress-indicators.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
-import { MenuToolbarComponent } from './menu-toolbar/menu-toolbar.component';
-import { StatusDescriptionPipe } from './status-description.pipe';
+import { BoardMapComponent } from './boards/components/board-map/board-map.component';
+import { ProgressIndicatorsComponent } from './boards/components/progress-indicators/progress-indicators.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { MenuToolbarComponent } from './components/menu-toolbar/menu-toolbar.component';
+// import { StatusDescriptionPipe } from './status-description.pipe';
+import { BoardComponent } from './boards/components/board/board.component';
+import {BoardsModule} from './boards/boards.module';
+import {FeedModule} from './feed/feed.module';
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
-    BoardsComponent,
+    //BoardsComponent,
     LoginDialogComponent,
     EditDialogComponent,
     AddDialogComponent,
     ConfirmDeleteComponent,
-    ViewBoardComponent,
-    BoardTypePipe,
-    BoardStatusPipe,
-    BoardMapComponent,
-    DashboardComponent,
+    // ViewBoardComponent,
+    // BoardTypePipe,
+    // BoardStatusPipe,
+    // BoardMapComponent,
     ProgressIndicatorsComponent,
     ToolbarComponent,
     MenuToolbarComponent,
-    StatusDescriptionPipe
+    // StatusDescriptionPipe,
+    //BoardComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -92,7 +95,8 @@ import { StatusDescriptionPipe } from './status-description.pipe';
     Angulartics2Module.forRoot([ Angulartics2GoogleTagManager ]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBDUbFNWPFMqg3PkRP7icfWt1jDZmZCbic'
-    })
+    }),
+    BoardsModule
   ],
   entryComponents: [
     LoginDialogComponent, EditDialogComponent, AddDialogComponent, ConfirmDeleteComponent, ViewBoardComponent

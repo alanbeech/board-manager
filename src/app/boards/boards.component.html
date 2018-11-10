@@ -11,12 +11,13 @@
 
     <mat-card-title-group>
       <mat-card-title>
-        <ng-container *ngIf="!boardType && boardType != 0">All</ng-container>
-        <ng-container *ngIf="boardType == 0">#2minutebeacheclean</ng-container>
-        <ng-container *ngIf="boardType == 1">#2minutelitterpick</ng-container>
-        <ng-container *ngIf="boardType == 2">#2minutestreetclean</ng-container>
          Boards
       </mat-card-title>
+      <div class="selectors">
+        <mat-checkbox (change)="getBoards()" [(checked)]="showLitterPickBoards">#2minutelitterpick</mat-checkbox>
+        <mat-checkbox (change)="getBoards()" [(checked)]="showBeachCleanBoards">#2minutebeachclean</mat-checkbox>
+        <mat-checkbox (change)="getBoards()" [(checked)]="showStreetCleanBoards">#2minutestreetclean</mat-checkbox>
+      </div>
     </mat-card-title-group>
 
     <mat-form-field>
@@ -28,7 +29,7 @@
         <!-- Position Column -->
         <ng-container matColumnDef="position">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell  (click)="viewBoard(element)" *matCellDef="let element" style="width: 30px;">
+          <td mat-cell (click)="viewBoard(element)" *matCellDef="let element" style="width: 30px;">
             <mat-icon *ngIf="element.boardType=='0'" class="icon beach-clean">event_note</mat-icon>
             <mat-icon *ngIf="element.boardType=='1'" class="icon street-clean">event_note</mat-icon>
             <mat-icon *ngIf="element.boardType=='2'" class="icon litter-pick">event_note</mat-icon>
@@ -45,15 +46,20 @@
 
         <!-- Weight Column -->
 
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> Type</th>
+          <td mat-cell (click)="viewBoard(element)" *matCellDef="let element"> {{element.boardType | boardType}}</td>
+        </ng-container>
+
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef> Status</th>
           <td mat-cell (click)="viewBoard(element)" *matCellDef="let element"> {{element.status | boardStatus}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="weight">
-          <th mat-header-cell *matHeaderCellDef> Location Description</th>
-          <td mat-cell (click)="viewBoard(element)" *matCellDef="let element"> {{element.location}}</td>
-        </ng-container>
+        <!--<ng-container matColumnDef="weight">-->
+          <!--<th mat-header-cell *matHeaderCellDef> Location Description</th>-->
+          <!--<td mat-cell  (click)="viewBoard(element)" *matCellDef="let element"> {{element.location}}</td>-->
+        <!--</ng-container>-->
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="symbol">
@@ -63,7 +69,7 @@
 
         <ng-container matColumnDef="longitude">
           <th mat-header-cell *matHeaderCellDef> Longitude</th>
-          <td mat-cell (click)="viewBoard(element)" *matCellDef="let element"> {{element.longitude}}</td>
+          <td mat-cell  (click)="viewBoard(element)" *matCellDef="let element"> {{element.longitude}}</td>
         </ng-container>
 
         <ng-container matColumnDef="menu">
@@ -78,9 +84,13 @@
                 <mat-icon>delete</mat-icon>
                 Delete
               </button>
-              <!--<button *ngIf="isAdmin" mat-menu-item (click)="assignOwners(element)">-->
+              <!--<button *ngIf="isAdmin" mat-menu-item (click)="assignGuardians(element)">-->
                 <!--<mat-icon>people</mat-icon>-->
-                <!--Assign Owners-->
+                <!--Manage Guardians-->
+              <!--</button>-->
+              <!--<button *ngIf="isAdmin" mat-menu-item (click)="assignGuardianAngels(element)">-->
+                <!--<mat-icon>people</mat-icon>-->
+                <!--Manage Guardian Angels-->
               <!--</button>-->
             </mat-menu>
 

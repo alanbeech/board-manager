@@ -14,27 +14,33 @@
 
     <div style="width: 300px;">
 
+      <!--<h3 style="padding-left: 18px;">Feed</h3>-->
+      <!--<button routerLink="/feed" mat-button style="width: 100%; text-align: left">-->
+        <!--<mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">list</mat-icon>-->
+        <!--Feed-->
+      <!--</button>-->
+
       <h3 style="padding-left: 18px;">Boards</h3>
 
       <button routerLink="/boards" mat-button style="width: 100%; text-align: left">
         <mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">event_note</mat-icon>
-        All Boards
+         Boards
       </button>
 
-      <button routerLink="/boards/0" mat-button style="width: 100%; text-align: left">
-        <mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">event_note</mat-icon>
-        #2minutebeachclean
-      </button>
+      <!--<button routerLink="/boards/0" mat-button style="width: 100%; text-align: left">-->
+        <!--<mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">event_note</mat-icon>-->
+        <!--#2minutebeachclean-->
+      <!--</button>-->
 
-      <button routerLink="/boards/1" mat-button style="width: 100%; text-align: left">
-        <mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">event_note</mat-icon>
-        #2minutelitterpick
-      </button>
+      <!--<button routerLink="/boards/1" mat-button style="width: 100%; text-align: left">-->
+        <!--<mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">event_note</mat-icon>-->
+        <!--#2minutelitterpick-->
+      <!--</button>-->
 
-      <button routerLink="/boards/2" mat-button style="width: 100%; text-align: left">
-        <mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">event_note</mat-icon>
-        #2minutestreetclean
-      </button>
+      <!--<button routerLink="/boards/2" mat-button style="width: 100%; text-align: left">-->
+        <!--<mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">event_note</mat-icon>-->
+        <!--#2minutestreetclean-->
+      <!--</button>-->
 
       <button routerLink="/map" mat-button style="width: 100%; text-align: left">
         <mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">map</mat-icon>
@@ -43,13 +49,19 @@
 
 
       <h3 style="padding-left: 18px;">Account</h3>
+
+      <!--<button routerLink="/admin" mat-button style="width: 100%; text-align: left">-->
+        <!--<mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">people</mat-icon>-->
+        <!--Users-->
+      <!--</button>-->
+
       <button *ngIf="isLoggedIn" (click)="logout()" mat-button style="width: 100%; text-align: left">
-        <mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">logout</mat-icon>
+        <mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">lock_open</mat-icon>
         Log Out
       </button>
 
       <button *ngIf="!isLoggedIn" (click)="login()" mat-button style="width: 100%; text-align: left">
-        <mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">lock</mat-icon>
+        <mat-icon class="icon beach-clean" style="margin-right: 15px; opacity: 0.5">lock_open</mat-icon>
         Log In / Register
       </button>
 

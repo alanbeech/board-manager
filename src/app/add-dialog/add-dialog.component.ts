@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Board} from '../boards/boards.component';
-import {BoardType} from '../board-type.interface';
+import {BoardType} from '../boards/models/board-type.interface';
 import {Status} from '../status.interface';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
-import {BoardsService} from '../boards.service';
+import {BoardsService} from '../boards/services/boards.service';
 import {Angulartics2} from 'angulartics2';
 import {NotificationsService} from '../services/notifications.service';
 import {NotificationType} from '../services/notification-type.enum';

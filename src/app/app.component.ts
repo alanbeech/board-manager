@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {LoginDialogComponent} from './login-dialog/login-dialog.component';
+import {LoginDialogComponent} from './components/login-dialog/login-dialog.component';
 import {LoginResponseModel} from './login-response.model';
 import {AccountService} from './account.service';
 import {Angulartics2GoogleTagManager} from 'angulartics2/gtm';

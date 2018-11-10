@@ -1,17 +1,21 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatInput, MatPaginator, MatTableDataSource} from '@angular/material';
-import {BoardsService} from '../boards.service';
+import {BoardsService} from './services/boards.service';
 import {SelectionModel} from '@angular/cdk/collections';
-import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
-import {ActivatedRoute} from '@angular/router';
+import {EditDialogComponent} from './components/edit-dialog/edit-dialog.component';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AddDialogComponent} from '../add-dialog/add-dialog.component';
-import {ConfirmDeleteComponent} from '../confirm-delete/confirm-delete.component';
-import {AccountService} from '../account.service';
-import {ViewBoardComponent} from '../view-board/view-board.component';
+import {ConfirmDeleteComponent} from '../components/confirm-delete/confirm-delete.component';
+import {ViewBoardComponent} from './components/view-board/view-board.component';
 import {NotificationsService} from '../services/notifications.service';
 import {NotificationType} from '../services/notification-type.enum';
+import {AccountService} from '../account.service';
 
 export interface Board {
+  owner: string;
+  guardian: string;
+  adoptedBy: string;
+  urn: string;
   boardId: number;
   twoMinuteId: string;
   name: string;
@@ -36,7 +40,7 @@ const allowMultiSelect = true;
   styleUrls: ['./boards.component.scss']
 })
 export class BoardsComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'status', 'name', 'weight', 'symbol', 'longitude', 'menu'];
+  displayedColumns: string[] = ['position', 'type', 'status', 'name', 'symbol', 'longitude', 'menu'];
   dataSource: any;
   boards: Array<Board>;
   selection = new SelectionModel<Board>(allowMultiSelect, initialSelection);
@@ -44,25 +48,59 @@ export class BoardsComponent implements OnInit {
   isLoggedIn = false;
   isAdmin = false;
   isLoading = false;
+  showBeachCleanBoards = true;
+  showLitterPickBoards = true;
+  showStreetCleanBoards = true;
+
 
   @ViewChild(MatInput) filterInput: MatInput;
 
   constructor(
     private boardsService: BoardsService,
     private route: ActivatedRoute,
+    private router: Router,
     public dialog: MatDialog,
     private accountService: AccountService,
     private notificationService: NotificationsService) { }
-  getBoards(boardType: number) {
+  getBoards() {
 
     this.isLoggedIn = this.accountService.getKey() !== '' && this.accountService.getKey() != null ;
     this.isAdmin = this.accountService.isAdmin();
 
     this.isLoading = true;
-    this.boardsService.getBoards(boardType).subscribe((data:  Array<Board>) => {
+    this.boardsService.getBoards(-1).subscribe((data:  Array<Board>) => {
       this.isLoading = false;
-      this.boards  =  data;
-      this.dataSource = new MatTableDataSource(this.boards);
+
+      const filteredBoards = new Array<Board>();
+      this.boards = [];
+      data.forEach((board) => {
+        console.log(board.boardType);
+        switch (board.boardType) {
+          case 0:
+            if (this.showBeachCleanBoards)
+            {
+              filteredBoards.push(board);
+            }
+            break;
+          case 1:
+            if (this.showLitterPickBoards)
+            {
+              filteredBoards.push(board);
+            }
+            break;
+          case 2:
+            if (this.showStreetCleanBoards)
+            {
+              filteredBoards.push(board);
+            }
+            break;
+        }
+      });
+
+      // this.boards  =  filteredBoards;
+
+      this.dataSource = new MatTableDataSource(filteredBoards);
+
       this.applyFilter(this.filterInput.value);
     }, (error) => {
       this.notificationService.showNotification(`Sorry. We are unable to get the boards at this time. Please try later`, NotificationType.Error);
@@ -81,7 +119,7 @@ export class BoardsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((added: boolean) => {
       if (added) {
         this.notificationService.showNotification('Your board has been added. Thank you.', NotificationType.Success)
-        this.getBoards(this.boardType);
+        this.getBoards();
       }
     }, (error) => {
       this.notificationService.showNotification(`Sorry. We were unable to delete your board at this time. Please try later.`, NotificationType.Error);
@@ -99,7 +137,7 @@ export class BoardsComponent implements OnInit {
         console.log('delete board', board);
         this.boardsService.deleteBoard(board.boardId).subscribe(() => {
           console.log('done');
-          this.getBoards(this.boardType);
+          this.getBoards();
           this.notificationService.showNotification('Your board has been deleted.', NotificationType.Success);
         }, (error) => {
           this.notificationService.showNotification(`Sorry. We were unable to delete your board at this time. Please try later.`, NotificationType.Error)
@@ -120,7 +158,7 @@ export class BoardsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((edited: boolean) => {
       if (edited) {
         this.notificationService.showNotification('Your board has been saved.', NotificationType.Success);
-        this.getBoards(this.boardType);
+        this.getBoards();
       }
     });
   }
@@ -140,6 +178,9 @@ export class BoardsComponent implements OnInit {
   }
 
   viewBoard(board: Board) {
+
+    // this.router.navigate([`board/${board.boardId}`]);
+
     const dialogRef = this.dialog.open(ViewBoardComponent, {
       width: '600px',
       data: board
@@ -148,21 +189,32 @@ export class BoardsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((edited: boolean) => { });
   }
 
-  assignOwners() {
-    alert('assign owners coming soon');
+  assignGuardians(board: Board) {
+    this.router.navigate([`admin/board-guardians/${board.boardId}`]);
+  }
+
+  assignGuardianAngels(board: Board) {
+    this.router.navigate([`admin/board-guardian-angels/${board.boardId}`]);
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.boardType = +params['filter']; // (+) converts string 'id' to a number
-      this.getBoards(this.boardType);
-      // In a real app: dispatch action to load the details here.
-    });
+
+    this.getBoards();
+
+    // this.route.params.subscribe(params => {
+    //   this.boardType = +params['filter']; // (+) converts string 'id' to a number
+    //   this.getBoards();
+    //   // In a real app: dispatch action to load the details here.
+    // }, () =>{
+    //   this.isLoading = false;
+    // });
 
 
     this.accountService.loggedIn.subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
-      this.getBoards(this.boardType);
+      this.getBoards();
+    }, () => {
+      this.isLoading = false;
     });
   }
 

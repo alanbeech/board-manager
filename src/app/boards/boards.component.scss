@@ -48,6 +48,17 @@ table {
 
 .boards {
   padding-bottom: 100px;
+
+
+  .selectors {
+    float: right;
+    font-weight: normal;
+
+
+    mat-checkbox {
+      margin: 20px;
+    }
+  }
 }
 
 

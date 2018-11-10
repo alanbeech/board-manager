@@ -1,0 +1,68 @@
+<div class="view-board">
+  <h2 mat-dialog-title>{{data.name}}</h2>
+  <mat-dialog-content>
+    <div class="example-container">
+
+      <div *ngIf="data.twoMinuteId" class="item">
+        <label>2 Minute ID:</label>
+        {{data.twoMinuteId}}
+      </div>
+
+      <div *ngIf="data.location" class="item">
+        <label>Location</label><br>
+        {{data.location}}
+      </div>
+
+      <div *ngIf="data.description" class="item">
+        <label>Description</label><br>
+        {{data.description}}
+      </div>
+
+
+
+      <div *ngIf="data.owner" class="item">
+        <label>Owner</label><br>
+        {{data.owner}}
+      </div>
+
+
+      <div *ngIf="data.guardian" class="item">
+        <label>Guardian</label><br>
+        {{data.guardian}}
+      </div>
+
+
+      <div *ngIf="data.adoptedBy" class="item">
+        <label>Adopted by</label><br>
+        {{data.adoptedBy}}
+      </div>
+
+      <div *ngIf="data.urn" class="item">
+        <label>URN</label><br>
+        {{data.urn}}
+      </div>
+
+      <div *ngIf="data.longitude" class="item">
+        <label>Location:</label>
+        Lat: {{data.latitude}} / Lon: {{data.longitude}}
+      </div>
+
+      <div class="item">
+        <label>Board Type: </label>
+        {{data.boardType | boardType}}
+      </div>
+
+      <div class="item">
+        <label>Status: </label>
+        {{data.status | boardStatus}}
+      </div>
+
+
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions  style="float: right; margin-bottom: -10px;">
+    <button (click)="onSubmit()" mat-button mat-raised-button color="primary">OK</button>
+  </mat-dialog-actions>
+
+</div>

@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>Edit Boards</h2>
+<mat-dialog-content>
+  <div class="example-container">
+    <form [formGroup]="editBoardForm">
+      <mat-form-field style="width: 100%">
+        <input matInput formControlName="name" placeholder="Name">
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%">
+        <input matInput formControlName="twoMinuteId" placeholder="2 Minute ID">
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%">
+        <input matInput formControlName="location" placeholder="Location">
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%">
+        <textarea matInput formControlName="description" placeholder="Description"></textarea>
+      </mat-form-field>
+
+
+      <mat-form-field style="width: 100%">
+        <textarea matInput formControlName="owner" placeholder="Owner"></textarea>
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%">
+        <textarea matInput formControlName="guardian" placeholder="Guardian"></textarea>
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%">
+        <textarea matInput formControlName="adoptedBy" placeholder="Adopted by"></textarea>
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%">
+        <textarea matInput formControlName="urn" placeholder="URN"></textarea>
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%">
+        <input matInput formControlName="latitude" placeholder="Latitude">
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%">
+        <input matInput formControlName="longitude" placeholder="Longitude">
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%">
+
+        <mat-select [(value)]="selectedBoardType" formControlName="boardType" placeholder="Board Type">
+          <mat-option *ngFor="let boardType of boardTypes" [(value)]="boardType.value">
+            {{boardType.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%">
+          <mat-select [(value)]="selected" formControlName="status"  placeholder="Status">
+            <mat-option *ngFor="let status of statuses" [(value)]="status.value">
+              {{status.viewValue}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions  style="float: right; margin-bottom: -10px;">
+  <button (click)="onSubmit()" mat-button mat-raised-button color="primary">Save</button>
+</mat-dialog-actions>
