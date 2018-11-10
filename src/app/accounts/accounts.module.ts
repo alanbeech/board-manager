@@ -6,6 +6,6 @@ import { UsersComponent } from '../admin/users/users.component';
   imports: [
     CommonModule
   ],
-  declarations: [UsersComponent]
+  declarations: []
 })
 export class AccountsModule { }
