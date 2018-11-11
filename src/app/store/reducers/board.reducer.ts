@@ -9,10 +9,10 @@ export interface State {
 }
 
 export const initialState: State = {
-  boards: null;
+  boards: null
 };
 
-export function reducer(state = initialState, action: Action): State {
+export function reducer(state = initialState, action: any): State {
   switch (action.type) {
 
     case boardActions.BoardActionTypes.SetBoards:

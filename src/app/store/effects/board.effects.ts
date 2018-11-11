@@ -21,7 +21,7 @@ export class BoardEffects {
     switchMap(() => {
       return this.boardsService.getBoards(-1)
         .pipe(
-          map((boards) => {
+          map((boards: any) => {
             return new boardActions.SetBoards(boards);
           })
         );
