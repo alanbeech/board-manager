@@ -6,6 +6,7 @@ import {Board} from '../../boards.component';
 import {BoardsService} from '../../services/boards.service';
 import {ViewBoardComponent} from '../view-board/view-board.component';
 import {ActivatedRoute} from '@angular/router';
+import {select, Store} from '@ngrx/store';
 
 export class PageBase {
   constructor(public resourceName: string) {
@@ -28,7 +29,10 @@ export class BoardMapComponent extends PageBase implements OnInit {
   width: number;
   height: number;
 
-  constructor(private accountService: AccountService, private boardsService: BoardsService, public dialog: MatDialog) {
+  constructor(private accountService: AccountService,
+              private boardsService: BoardsService,
+              public dialog: MatDialog,
+              private store: Store<Board[]>) {
     super('BoardMapComponent');
     this.width = window.innerWidth;
     this.height = window.innerHeight;
@@ -37,6 +41,10 @@ export class BoardMapComponent extends PageBase implements OnInit {
   getBoards(boardType: number) {
 
     // this.isLoggedIn = this.accountService.getKey() !== '' && this.accountService.getKey() != null ;
+
+    this.store.pipe(select((state: any) => state.board.boards)).subscribe((boards: any) => {
+      this.boards  =  boards;
+    });
 
     this.boardsService.getBoards(-1).subscribe((data:  Array<Board>) => {
       this.boards  =  data;

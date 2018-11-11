@@ -10,6 +10,8 @@ import {ViewBoardComponent} from './components/view-board/view-board.component';
 import {NotificationsService} from '../services/notifications.service';
 import {NotificationType} from '../services/notification-type.enum';
 import {AccountService} from '../account.service';
+import {Store, select} from '@ngrx/store';
+import * as authActions from '../store/actions/board.actions';
 
 export interface Board {
   owner: string;
@@ -61,50 +63,60 @@ export class BoardsComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private accountService: AccountService,
-    private notificationService: NotificationsService) { }
+    private notificationService: NotificationsService,
+    private store: Store<Board[]>) { }
   getBoards() {
 
     this.isLoggedIn = this.accountService.getKey() !== '' && this.accountService.getKey() != null ;
     this.isAdmin = this.accountService.isAdmin();
 
     this.isLoading = true;
-    this.boardsService.getBoards(-1).subscribe((data:  Array<Board>) => {
+
+    this.store.pipe(select((state: any) => state.board.boards)).subscribe((boards: any) => {
       this.isLoading = false;
-
-      const filteredBoards = new Array<Board>();
-      this.boards = [];
-      data.forEach((board) => {
-        console.log(board.boardType);
-        switch (board.boardType) {
-          case 0:
-            if (this.showBeachCleanBoards)
-            {
-              filteredBoards.push(board);
-            }
-            break;
-          case 1:
-            if (this.showLitterPickBoards)
-            {
-              filteredBoards.push(board);
-            }
-            break;
-          case 2:
-            if (this.showStreetCleanBoards)
-            {
-              filteredBoards.push(board);
-            }
-            break;
-        }
-      });
-
-      // this.boards  =  filteredBoards;
-
-      this.dataSource = new MatTableDataSource(filteredBoards);
-
+      this.boards = boards;
+      this.dataSource = new MatTableDataSource(this.boards);
       this.applyFilter(this.filterInput.value);
-    }, (error) => {
-      this.notificationService.showNotification(`Sorry. We are unable to get the boards at this time. Please try later`, NotificationType.Error);
     });
+
+
+    // this.boardsService.getBoards(-1).subscribe((data:  Array<Board>) => {
+    //   this.isLoading = false;
+    //
+    //   const filteredBoards = new Array<Board>();
+    //   this.boards = [];
+    //   data.forEach((board) => {
+    //     console.log(board.boardType);
+    //     switch (board.boardType) {
+    //       case 0:
+    //         if (this.showBeachCleanBoards)
+    //         {
+    //           filteredBoards.push(board);
+    //         }
+    //         break;
+    //       case 1:
+    //         if (this.showLitterPickBoards)
+    //         {
+    //           filteredBoards.push(board);
+    //         }
+    //         break;
+    //       case 2:
+    //         if (this.showStreetCleanBoards)
+    //         {
+    //           filteredBoards.push(board);
+    //         }
+    //         break;
+    //     }
+    //   });
+    //
+    //   // this.boards  =  filteredBoards;
+    //
+    //   this.dataSource = new MatTableDataSource(filteredBoards);
+    //
+    //   this.applyFilter(this.filterInput.value);
+    // }, (error) => {
+    //   this.notificationService.showNotification(`Sorry. We are unable to get the boards at this time. Please try later`, NotificationType.Error);
+    // });
   }
 
   applyFilter(filterValue: string) {
@@ -118,8 +130,9 @@ export class BoardsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((added: boolean) => {
       if (added) {
-        this.notificationService.showNotification('Your board has been added. Thank you.', NotificationType.Success)
-        this.getBoards();
+        this.notificationService.showNotification('Your board has been added. Thank you.', NotificationType.Success);
+        this.store.dispatch(new authActions.LoadBoards());
+        // this.getBoards();
       }
     }, (error) => {
       this.notificationService.showNotification(`Sorry. We were unable to delete your board at this time. Please try later.`, NotificationType.Error);
@@ -137,7 +150,8 @@ export class BoardsComponent implements OnInit {
         console.log('delete board', board);
         this.boardsService.deleteBoard(board.boardId).subscribe(() => {
           console.log('done');
-          this.getBoards();
+          // this.getBoards();
+          this.store.dispatch(new authActions.LoadBoards());
           this.notificationService.showNotification('Your board has been deleted.', NotificationType.Success);
         }, (error) => {
           this.notificationService.showNotification(`Sorry. We were unable to delete your board at this time. Please try later.`, NotificationType.Error)
@@ -158,7 +172,8 @@ export class BoardsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((edited: boolean) => {
       if (edited) {
         this.notificationService.showNotification('Your board has been saved.', NotificationType.Success);
-        this.getBoards();
+        this.store.dispatch(new authActions.LoadBoards());
+        // this.getBoards();
       }
     });
   }
@@ -201,6 +216,7 @@ export class BoardsComponent implements OnInit {
 
     this.getBoards();
 
+
     // this.route.params.subscribe(params => {
     //   this.boardType = +params['filter']; // (+) converts string 'id' to a number
     //   this.getBoards();
@@ -212,7 +228,17 @@ export class BoardsComponent implements OnInit {
 
     this.accountService.loggedIn.subscribe((loggedIn) => {
       this.isLoggedIn = loggedIn;
-      this.getBoards();
+      // this.getBoards();
+
+      this.store.pipe(select((state: any) => state.board.boards)).subscribe((boards: any) => {
+        this.boards = boards;
+      });
+      // this.store.select(state => state).subscribe((test) => {
+      //   console.log('dd', test)
+      // });
+
+
+
     }, () => {
       this.isLoading = false;
     });

@@ -7,6 +7,10 @@ import {Angulartics2GoogleTagManager} from 'angulartics2/gtm';
 import {Angulartics2} from 'angulartics2';
 import {NotificationsService} from './services/notifications.service';
 import {NotificationType} from './services/notification-type.enum';
+import {Store} from '@ngrx/store';
+import * as fromRoot from './store/reducers';
+import * as authActions from './store/actions/board.actions';
+
 
 
 @Component({
@@ -26,7 +30,8 @@ export class AppComponent implements OnInit {
     private accountService: AccountService,
     angulartics2GoogleTagManager: Angulartics2GoogleTagManager,
     private angulartics2: Angulartics2,
-    private notificationService: NotificationsService) {
+    private notificationService: NotificationsService,
+    private store: Store<fromRoot.State>) {
     this.email = accountService.getUsername();
   }
 
@@ -55,6 +60,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.store.dispatch(new authActions.LoadBoards());
+
+
     const authKey = this.accountService.getKey();
     if (authKey) {
       this.isLoggedIn = true;
