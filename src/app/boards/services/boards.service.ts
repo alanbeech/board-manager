@@ -7,7 +7,7 @@ import {AccountService} from '../../account.service';
   providedIn: 'root'
 })
 export class BoardsService {
-  API_URL = 'https://beachclean.net/api';
+  API_URL = 'https://beachclean.azurewebsites.net/api';
 
   constructor(private  httpClient:  HttpClient, private accountService: AccountService) {
   }

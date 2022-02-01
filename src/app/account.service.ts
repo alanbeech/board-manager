@@ -20,7 +20,7 @@ export class ResetPasswordModel {
   providedIn: 'root'
 })
 export class AccountService {
-  API_URL = 'https://beachclean.net';
+  API_URL = 'https://beachclean.azurewebsites.net';
 
   loggedIn = new Subject<boolean>();
 
